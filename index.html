@@ -195,6 +195,14 @@ footer { text-align: center; padding: 20px 16px 32px; font-size: 11px; color: #a
           </div>
           <div class="trouble-arrow">›</div>
         </button>
+        <button class="trouble-btn" onclick="showFlow('hospital_flow')">
+          <div class="trouble-icon">🏥</div>
+          <div class="trouble-text">
+            <div class="trouble-label" id="tl-hospital-flow">病院に行きたい</div>
+            <div class="trouble-sub" id="ts-hospital-flow">受付・症状の伝え方を見る</div>
+          </div>
+          <div class="trouble-arrow">›</div>
+        </button>
       </div>
     </div>
 
@@ -267,6 +275,8 @@ const LABELS = {
   ts_work: { ja: '担当者に伝えるフレーズ', vi: 'Cụm từ để nói với người phụ trách', id: 'Frasa untuk disampaikan ke penanggung jawab', en: 'Phrases to tell your supervisor', my: 'တာဝန်ခံသို့ပြောရမည့်စကား', bn: 'দায়িত্বশীলকে বলার বাক্য' },
   tl_garbage: { ja: 'ゴミを出したい', vi: 'Muốn đổ rác', id: 'Ingin membuang sampah', en: 'Want to take out garbage', my: 'အမှိုက်ပစ်လိုသည်', bn: 'ময়লা ফেলতে চাই' },
   ts_garbage: { ja: '分別と出し方の手順を見る', vi: 'Xem cách phân loại và đổ rác', id: 'Lihat cara memilah dan membuang', en: 'See how to sort and take out', my: 'ခွဲခြားနှင့် ထုတ်နည်းကြည့်ပါ', bn: 'বাছাই ও ফেলার ধাপ দেখুন' },
+  'tl_hospital-flow': { ja: '病院に行きたい', vi: 'Muốn đi bệnh viện', id: 'Ingin pergi ke rumah sakit', en: 'Want to go to hospital', my: 'ဆေးရုံသွားလိုသည်', bn: 'হাসপাতালে যেতে চাই' },
+  'ts_hospital-flow': { ja: '受付・症状の伝え方を見る', vi: 'Xem cách đến khám và trình bày triệu chứng', id: 'Lihat cara mendaftar dan menyampaikan gejala', en: 'See how to register and describe symptoms', my: 'လက်ခံရေးနှင့် ရောဂါလက္ခဏာပြောနည်းကြည့်ပါ', bn: 'নিবন্ধন ও উপসর্গ বলার ধাপ দেখুন' },
   ml_emergency: { ja: '緊急', vi: 'Khẩn cấp', id: 'Darurat', en: 'Emergency', my: 'အရေးပေါ်', bn: 'জরুরি' },
   ml_hospital: { ja: '病院', vi: 'Bệnh viện', id: 'Rumah sakit', en: 'Hospital', my: 'ဆေးရုံ', bn: 'হাসপাতাল' },
   ml_procedure: { ja: '役所・銀行', vi: 'Cơ quan / Ngân hàng', id: 'Kantor / Bank', en: 'City Hall / Bank', my: 'အစိုးရရုံး/ဘဏ်', bn: 'অফিস/ব্যাংক' },
@@ -297,6 +307,10 @@ function updateLabels() {
     if (tl) tl.textContent = L('tl_'+k);
     if (ts) ts.textContent = L('ts_'+k);
   });
+  const tlHf = document.getElementById('tl-hospital-flow');
+  const tsHf = document.getElementById('ts-hospital-flow');
+  if (tlHf) tlHf.textContent = L('tl_hospital-flow');
+  if (tsHf) tsHf.textContent = L('ts_hospital-flow');
   ['emergency','hospital','procedure','daily','life','traffic','security','custom'].forEach(k => {
     const el = document.getElementById('ml-'+k);
     if (el) el.textContent = L('ml_'+k);

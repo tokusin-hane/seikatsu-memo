@@ -54,6 +54,22 @@ const DATA = {
         { no: 2, action: { ja: "収集日・時間を確認する", vi: "Kiểm tra ngày và giờ thu gom", id: "Periksa hari pengangkutan", en: "Check collection day/time", my: "စုဆောင်းနေ့နှင့်အချိန်စစ်ဆေးပါ", bn: "সংগ্রহের দিন ও সময় দেখুন" }, show: { ja: "収集日の朝8時までに出す。\n前日の夜は出さないでください。", vi: "Đổ rác trước 8 giờ sáng ngày thu gom.\nKhông đổ vào tối hôm trước.", id: "Keluarkan sebelum jam 8 pagi.\nJangan malam sebelumnya.", en: "Put out by 8am on collection day.\nDo not put out the night before.", my: "စုဆောင်းနေ့မနက် ၈နာရီမတိုင်မီ ထုတ်ပါ။\nညနေပိုင်းတွင် မထုတ်ပါနှင့်။", bn: "সংগ্রহের দিন সকাল ৮টার আগে রাখুন।\nআগের রাতে রাখবেন না।" } },
         { no: 3, action: { ja: "指定袋に入れて出す", vi: "Cho vào túi quy định và đổ", id: "Masukkan ke kantong yang ditentukan", en: "Put in designated bag and take out", my: "သတ်မှတ်အိတ်ထဲထည့်ပြီး ထုတ်ပါ", bn: "নির্ধারিত ব্যাগে রেখে ফেলুন" }, show: { ja: "指定のゴミ袋を使ってください。\nゴミ置き場に出してください。", vi: "Hãy dùng túi rác quy định.\nĐặt ở nơi để rác.", id: "Gunakan kantong sampah yang ditentukan.\nLetakkan di tempat pembuangan.", en: "Use the designated garbage bag.\nPut it at the collection point.", my: "သတ်မှတ်အမှိုက်အိတ်သုံးပါ။\nအမှိုက်ထားသောနေရာတွင် ထားပါ။", bn: "নির্ধারিত ময়লার ব্যাগ ব্যবহার করুন।\nময়লা রাখার জায়গায় রাখুন।" } },
       ]
+    },
+    {
+      id: "hospital_flow", icon: "🏥",
+      title: { ja: "病院に行きたい", vi: "Muốn đi bệnh viện", id: "Ingin pergi ke rumah sakit", en: "Want to go to hospital", my: "ဆေးရုံသွားလိုသည်", bn: "হাসপাতালে যেতে চাই" },
+      steps: [
+        { no: 1, action: { ja: "保険証を持つ", vi: "Mang theo thẻ bảo hiểm", id: "Bawa kartu asuransi", en: "Bring your insurance card", my: "အာမခံကတ်ယူဆောင်ပါ", bn: "বীমা কার্ড নিন" }, show: { ja: "保険証を持ちましたか？\n忘れずに持って行ってください。", vi: "Bạn đã mang thẻ bảo hiểm chưa?\nĐừng quên mang theo.", id: "Sudah membawa kartu asuransi?\nJangan lupa dibawa.", en: "Have you got your insurance card?\nDon't forget to bring it.", my: "အာမခံကတ်ယူလိုက်ပြီလား？\nမေ့မနေပါနှင့်။", bn: "বীমা কার্ড নিয়েছেন?\nভুলবেন না।" } },
+        { no: 2, action: { ja: "症状を選ぶ", vi: "Chọn triệu chứng", id: "Pilih gejala", en: "Choose your symptom", my: "ရောဂါလက္ခဏာရွေးပါ", bn: "উপসর্গ বেছে নিন" }, options: [
+          { ja: "お腹が痛いです。", vi: "Tôi bị đau bụng.", id: "Saya sakit perut.", en: "I have a stomachache.", my: "ဝမ်းနာသည်။", bn: "পেট ব্যথা আছে।" },
+          { ja: "頭が痛いです。", vi: "Tôi bị đau đầu.", id: "Saya sakit kepala.", en: "I have a headache.", my: "ခေါင်းကိုက်သည်။", bn: "মাথা ব্যথা আছে।" },
+          { ja: "熱があります。", vi: "Tôi bị sốt.", id: "Saya demam.", en: "I have a fever.", my: "အဖျားရှိသည်။", bn: "জ্বর আছে।" },
+          { ja: "ここが痛いです。\n（指さして）", vi: "Chỗ này đau.\n(Chỉ vào)", id: "Di sini sakit.\n(Tunjuk)", en: "It hurts here.\n(Point to it)", my: "ဒီနေရာနာသည်။\n(ညွှန်ပြပါ)", bn: "এখানে ব্যথা।\n(আঙুল দিয়ে দেখান)" },
+          { ja: "吐き気がします。", vi: "Tôi buồn nôn.", id: "Saya mual.", en: "I feel nauseous.", my: "ပျို့ချင်သည်။", bn: "বমি বমি লাগছে।" },
+        ]},
+        { no: 3, action: { ja: "受付で見せる", vi: "Cho xem tại quầy lễ tân", id: "Tunjukkan di resepsionis", en: "Show at reception", my: "လက်ခံရေးကောင်တာတွင် ပြပါ", bn: "রিসেপশনে দেখান" }, show: { ja: "初めて来ました。\n診察をお願いします。\n保険証があります。", vi: "Đây là lần đầu tôi đến.\nTôi muốn khám bệnh.\nTôi có thẻ bảo hiểm.", id: "Ini pertama kali saya datang.\nSaya ingin berobat.\nSaya punya kartu asuransi.", en: "This is my first visit.\nI would like to see a doctor.\nI have my insurance card.", my: "ပထမဆုံးလာသည်။\nဆေးကုလိုသည်။\nအာမခံကတ်ရှိသည်။", bn: "প্রথমবার এসেছি।\nডাক্তার দেখাতে চাই।\nবীমা কার্ড আছে।" } },
+        { no: 4, action: { ja: "わからないとき", vi: "Khi không hiểu", id: "Ketika tidak mengerti", en: "When you don't understand", my: "နားမလည်သောအခါ", bn: "না বুঝলে" }, show: { ja: "日本語がわかりません。\nゆっくり話してください。", vi: "Tôi không hiểu tiếng Nhật.\nXin hãy nói chậm lại.", id: "Saya tidak mengerti bahasa Jepang.\nTolong berbicara pelan-pelan.", en: "I don't understand Japanese.\nPlease speak slowly.", my: "ဂျပန်စကား နားမလည်ပါ။\nဖြေးဖြေးပြောပေးပါ။", bn: "জাপানি বুঝি না।\nধীরে কথা বলুন।" } },
+      ]
     }
   ],
   button: [
