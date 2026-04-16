@@ -8,32 +8,18 @@
 <link rel="manifest" href="manifest.json">
 <style>
 :root {
-  --green: #1db87d;
-  --green-dark: #0f6e56;
-  --green-light: #e8f7ef;
-  --red: #E24B4A;
-  --red-light: #FCEBEB;
-  --amber: #BA7517;
-  --amber-light: #FAEEDA;
-  --gray: #f5f5f5;
-  --text: #1a1a1a;
-  --text-muted: #666;
-  --white: #fff;
-  --radius: 12px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.07);
+  --green: #1db87d; --green-dark: #0f6e56; --green-light: #e8f7ef;
+  --red: #E24B4A; --amber: #BA7517; --amber-light: #FAEEDA;
+  --gray: #f5f5f5; --text: #1a1a1a; --text-muted: #666;
+  --white: #fff; --radius: 12px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans JP','Hiragino Sans',sans-serif; background: var(--gray); color: var(--text); min-height: 100vh; }
 
-header {
-  background: var(--green); padding: 14px 16px 10px;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
+header { background: var(--green); padding: 14px 16px 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .logo-text { color: #fff; font-size: 18px; font-weight: 700; }
 .logo-sub { color: rgba(255,255,255,0.8); font-size: 10px; }
-
 .lang-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
 .lang-row::-webkit-scrollbar { display: none; }
 .lb { background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
@@ -48,57 +34,66 @@ main { padding: 12px; max-width: 600px; margin: 0 auto; }
 
 .section-label { font-size: 11px; color: var(--text-muted); margin: 14px 0 8px 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.block { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; border: 1px solid #eee; }
+/* フローカード */
+.flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+.flow-card { background: #fff; border-radius: var(--radius); border: 1px solid #eee; padding: 14px 12px; cursor: pointer; transition: background 0.15s; }
+.flow-card:hover { background: var(--green-light); }
+.flow-icon { font-size: 24px; margin-bottom: 6px; }
+.flow-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.flow-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+/* フロー詳細画面 */
+.flow-detail { display: none; }
+.flow-detail.show { display: block; }
+.flow-back { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 6px 14px; font-size: 13px; cursor: pointer; margin-bottom: 14px; width: fit-content; color: var(--text-muted); }
+.step-card { background: #fff; border-radius: var(--radius); border: 1px solid #eee; margin-bottom: 10px; overflow: hidden; }
+.step-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
+.step-no { width: 28px; height: 28px; background: var(--green); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.step-action { font-size: 13px; font-weight: 600; color: var(--text); }
+.step-show { margin: 0 14px 14px; background: #f8f8f8; border-radius: 10px; padding: 16px; text-align: center; }
+.step-show-jp { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.5; white-space: pre-line; margin-bottom: 8px; }
+.step-show-tr { font-size: 13px; color: var(--text-muted); white-space: pre-line; line-height: 1.5; }
+.step-show-hint { font-size: 11px; color: var(--green-dark); margin-top: 8px; }
+.step-options { padding: 0 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.step-opt { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 10px 8px; cursor: pointer; text-align: center; transition: background 0.15s; }
+.step-opt:hover { background: var(--green-light); border-color: var(--green); }
+.opt-jp { font-size: 12px; font-weight: 600; white-space: pre-line; line-height: 1.4; }
+.opt-tr { font-size: 11px; color: var(--text-muted); margin-top: 3px; white-space: pre-line; line-height: 1.3; }
+
+/* ブロック（ボタン・カード共通） */
+.block { background: #fff; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 10px; overflow: hidden; border: 1px solid #eee; }
 .block-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; cursor: pointer; }
 .block-icon { font-size: 20px; width: 36px; height: 36px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .block-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
-.block-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .block-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.2s; }
 .block.open .block-arrow { transform: rotate(90deg); color: var(--green); }
 .block-body { display: none; border-top: 1px solid #f0f0f0; }
 .block.open .block-body { display: block; }
-
 .sub-label { font-size: 11px; color: var(--text-muted); padding: 10px 14px 6px; font-weight: 500; }
-
 .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
 .btn-grid.wide { grid-template-columns: 1fr; }
-.phrase-btn {
-  background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;
-  padding: 12px 10px; cursor: pointer; text-align: center;
-  transition: background 0.15s; min-height: 64px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
+.phrase-btn { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: background 0.15s; min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .phrase-btn:hover { background: var(--green-light); }
 .phrase-btn.red { border-left: 3px solid var(--red); }
 .phrase-btn.amber { border-left: 3px solid var(--amber); }
 .phrase-btn.green { border-left: 3px solid var(--green); }
 .btn-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.4; }
 .btn-tr { font-size: 11px; color: var(--text-muted); margin-top: 3px; white-space: pre-line; line-height: 1.3; }
-
 .card-items { padding: 0 14px 12px; }
 .card-item { padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
 .card-item:last-child { border-bottom: none; }
-.item-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; }
-.item-tr { font-size: 12px; color: var(--green-dark); margin-top: 3px; white-space: pre-line; }
-.item-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; white-space: pre-line; }
-.item-note-tr { font-size: 11px; color: #999; margin-top: 2px; line-height: 1.5; }
+.item-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.5; }
+.item-tr { font-size: 12px; color: var(--green-dark); margin-top: 3px; white-space: pre-line; line-height: 1.4; }
 
-.overlay-wrap {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-  display: none; align-items: center; justify-content: center;
-  z-index: 200; padding: 20px;
-}
+/* ポップアップ */
+.overlay-wrap { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
 .overlay-wrap.show { display: flex; }
-.popup {
-  background: #fff; border-radius: 16px; padding: 32px 24px;
-  width: 100%; max-width: 380px; text-align: center;
-}
-.popup-jp { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 14px; white-space: pre-line; }
-.popup-tr { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; white-space: pre-line; }
+.popup { background: #fff; border-radius: 16px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; }
+.popup-jp { font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 12px; white-space: pre-line; }
+.popup-tr { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; white-space: pre-line; }
 .popup-close { background: var(--green); color: #fff; border: none; border-radius: 24px; padding: 12px 40px; font-size: 15px; cursor: pointer; width: 100%; }
 
 footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
-.hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -131,6 +126,7 @@ footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
 <main>
   <div class="cat-row">
     <button class="cat-btn on" data-c="all">すべて</button>
+    <button class="cat-btn" data-c="flow">🔄 困りごと</button>
     <button class="cat-btn" data-c="emergency">🚨 緊急</button>
     <button class="cat-btn" data-c="hospital">🏥 病院</button>
     <button class="cat-btn" data-c="work">💼 職場</button>
@@ -145,7 +141,7 @@ footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
 </main>
 
 <footer>
-  <p>株式会社トクシントラスト | せいかつメモ v2.0</p>
+  <p>株式会社トクシントラスト | せいかつメモ v3.0</p>
   <p style="margin-top:4px;">オフライン対応 PWA</p>
 </footer>
 
@@ -153,6 +149,7 @@ footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
 <script>
 let lang = 'ja';
 let cat = 'all';
+let currentFlow = null;
 
 function g(obj) {
   if (!obj) return '';
@@ -173,15 +170,76 @@ document.getElementById('overlay').addEventListener('click', function(e) {
   if (e.target === this) closePopup();
 });
 
+function showFlow(flowId) {
+  currentFlow = DATA.flow.find(f => f.id === flowId);
+  if (!currentFlow) return;
+  renderFlowDetail();
+}
+
+function backToList() {
+  currentFlow = null;
+  render();
+}
+
+function renderFlowDetail() {
+  const f = currentFlow;
+  let html = `<button class="flow-back" onclick="backToList()">‹ 戻る / Back</button>`;
+  html += `<div style="font-size:16px;font-weight:600;margin-bottom:14px;">${f.icon} ${g(f.title)}</div>`;
+
+  f.steps.forEach(step => {
+    html += `<div class="step-card">`;
+    html += `<div class="step-header"><div class="step-no">${step.no}</div><div class="step-action">${g(step.action)}</div></div>`;
+
+    if (step.show) {
+      html += `<div class="step-show">`;
+      html += `<div class="step-show-jp">${step.show.ja}</div>`;
+      if (lang !== 'ja') html += `<div class="step-show-tr">${g(step.show)}</div>`;
+      html += `<div class="step-show-hint">← 画面を見せてください / Show this screen</div>`;
+      html += `</div>`;
+    }
+
+    if (step.options) {
+      html += `<div class="step-options">`;
+      step.options.forEach(opt => {
+        html += `<div class="step-opt" onclick="showPopup(${JSON.stringify(opt.ja)}, ${JSON.stringify(opt)})">`;
+        html += `<div class="opt-jp">${opt.ja}</div>`;
+        if (lang !== 'ja') html += `<div class="opt-tr">${g(opt)}</div>`;
+        html += `</div>`;
+      });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  document.getElementById('content').innerHTML = html;
+}
+
 function render() {
+  if (currentFlow) { renderFlowDetail(); return; }
+
   const el = document.getElementById('content');
   let html = '';
 
+  const showFlow = cat === 'all' || cat === 'flow';
   const btns = DATA.button.filter(b => cat === 'all' || b.cat === cat);
   const cards = DATA.card.filter(c => cat === 'all' || c.cat === cat);
 
+  if (showFlow) {
+    html += `<div class="section-label">いま何に困っていますか？ / What do you need help with?</div>`;
+    html += `<div class="flow-grid">`;
+    DATA.flow.forEach(f => {
+      html += `<div class="flow-card" onclick="showFlow('${f.id}')">`;
+      html += `<div class="flow-icon">${f.icon}</div>`;
+      html += `<div class="flow-title">${g(f.title)}</div>`;
+      html += `<div class="flow-sub">→ 手順を見る</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
   if (btns.length > 0) {
-    if (cat === 'all') html += `<div class="section-label">タップして画面を見せる / Tap to show screen</div>`;
+    if (cat === 'all') html += `<div class="section-label">タップして画面を見せる / Tap to show</div>`;
     btns.forEach((b, bi) => {
       html += `<div class="block" id="bb${bi}">`;
       html += `<div class="block-header" onclick="toggle('bb${bi}')">`;
@@ -193,11 +251,10 @@ function render() {
         html += `<div class="sub-label">${g(sec.label)}</div>`;
         const wide = sec.items.length <= 2;
         html += `<div class="btn-grid${wide ? ' wide' : ''}">`;
-        sec.items.forEach((item, ii) => {
-          const key = `bb${bi}_${ii}`;
+        sec.items.forEach(item => {
           html += `<button class="phrase-btn ${item.color||''}" onclick="showPopup(${JSON.stringify(item.jp)}, ${JSON.stringify(item.tr)})">`;
           html += `<div class="btn-jp">${item.jp}</div>`;
-          html += `<div class="btn-tr" id="${key}">${lang !== 'ja' ? (item.tr[lang]||'') : ''}</div>`;
+          if (lang !== 'ja') html += `<div class="btn-tr">${item.tr[lang]||''}</div>`;
           html += `</button>`;
         });
         html += `</div>`;
@@ -219,16 +276,13 @@ function render() {
         html += `<div class="card-item">`;
         html += `<div class="item-jp">${item.jp}</div>`;
         if (lang !== 'ja') html += `<div class="item-tr">${g(item.tr)}</div>`;
-        if (item.note) {
-          html += `<div class="item-note">${g(item.note)}</div>`;
-        }
         html += `</div>`;
       });
       html += `</div></div></div>`;
     });
   }
 
-  if (btns.length === 0 && cards.length === 0) {
+  if (!showFlow && btns.length === 0 && cards.length === 0) {
     html = `<div style="text-align:center;padding:40px 16px;color:var(--text-muted);font-size:14px;">コンテンツがありません</div>`;
   }
 
@@ -236,8 +290,7 @@ function render() {
 }
 
 function toggle(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
+  document.getElementById(id).classList.toggle('open');
 }
 
 document.querySelectorAll('.lb').forEach(b => {
@@ -254,6 +307,7 @@ document.querySelectorAll('.cat-btn').forEach(b => {
     document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
     cat = b.dataset.c;
+    currentFlow = null;
     render();
   });
 });
