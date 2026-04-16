@@ -6,456 +6,263 @@
 <meta name="theme-color" content="#1db87d">
 <title>せいかつメモ | Tokushin</title>
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
 <style>
-  :root {
-    --green: #1db87d;
-    --green-dark: #0f6e56;
-    --green-light: #e8f7ef;
-    --gray: #f5f5f5;
-    --text: #1a1a1a;
-    --text-muted: #666;
-    --white: #fff;
-    --radius: 12px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
-    background: var(--gray);
-    color: var(--text);
-    min-height: 100vh;
-  }
+:root {
+  --green: #1db87d;
+  --green-dark: #0f6e56;
+  --green-light: #e8f7ef;
+  --red: #E24B4A;
+  --red-light: #FCEBEB;
+  --amber: #BA7517;
+  --amber-light: #FAEEDA;
+  --gray: #f5f5f5;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --white: #fff;
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Noto Sans JP','Hiragino Sans',sans-serif; background: var(--gray); color: var(--text); min-height: 100vh; }
 
-  /* HEADER */
-  header {
-    background: var(--green);
-    padding: 16px 20px 12px;
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  }
-  .header-top {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 12px;
-  }
-  .logo { display: flex; align-items: center; gap: 8px; }
-  .logo-mark {
-    width: 28px; height: 28px; background: #fff;
-    border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  }
-  .logo-mark svg { width: 18px; height: 18px; }
-  .logo-text { color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
-  .logo-sub { color: rgba(255,255,255,0.8); font-size: 11px; }
+header {
+  background: var(--green); padding: 14px 16px 10px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.logo-text { color: #fff; font-size: 18px; font-weight: 700; }
+.logo-sub { color: rgba(255,255,255,0.8); font-size: 10px; }
 
-  /* LANG SWITCHER */
-  .lang-switcher {
-    display: flex; gap: 6px; overflow-x: auto;
-    padding-bottom: 2px; scrollbar-width: none;
-  }
-  .lang-switcher::-webkit-scrollbar { display: none; }
-  .lang-btn {
-    background: rgba(255,255,255,0.2);
-    border: 1.5px solid rgba(255,255,255,0.4);
-    color: #fff; border-radius: 20px;
-    padding: 5px 14px; font-size: 13px; font-weight: 500;
-    cursor: pointer; white-space: nowrap; transition: all 0.2s;
-    flex-shrink: 0;
-  }
-  .lang-btn.active {
-    background: #fff; color: var(--green); border-color: #fff;
-  }
-  .lang-btn:hover:not(.active) { background: rgba(255,255,255,0.35); }
+.lang-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.lang-row::-webkit-scrollbar { display: none; }
+.lb { background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.lb.on { background: #fff; color: var(--green); border-color: #fff; }
 
-  /* MAIN */
-  main { padding: 16px; max-width: 680px; margin: 0 auto; }
+main { padding: 12px; max-width: 600px; margin: 0 auto; }
 
-  /* CATEGORY TABS */
-  .cat-tabs {
-    display: flex; gap: 8px; overflow-x: auto;
-    padding-bottom: 4px; margin-bottom: 16px;
-    scrollbar-width: none;
-  }
-  .cat-tabs::-webkit-scrollbar { display: none; }
-  .cat-tab {
-    background: #fff; border: 1.5px solid #ddd;
-    border-radius: 20px; padding: 6px 16px;
-    font-size: 13px; cursor: pointer; white-space: nowrap;
-    transition: all 0.2s; flex-shrink: 0; color: var(--text-muted);
-  }
-  .cat-tab.active {
-    background: var(--green); border-color: var(--green); color: #fff;
-  }
-  .cat-tab:hover:not(.active) { border-color: var(--green); color: var(--green); }
+.cat-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 14px; }
+.cat-row::-webkit-scrollbar { display: none; }
+.cat-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; color: var(--text-muted); }
+.cat-btn.on { background: var(--green); border-color: var(--green); color: #fff; }
 
-  /* CARDS */
-  .section { margin-bottom: 24px; }
-  .section-title {
-    font-size: 13px; font-weight: 700; color: var(--green-dark);
-    text-transform: uppercase; letter-spacing: 1px;
-    margin-bottom: 10px; padding-left: 4px;
-  }
-  .cards { display: flex; flex-direction: column; gap: 8px; }
-  .card {
-    background: #fff; border-radius: var(--radius);
-    box-shadow: var(--shadow); overflow: hidden;
-    border: 1px solid #eee;
-  }
-  .card-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; cursor: pointer;
-    transition: background 0.15s;
-  }
-  .card-header:hover { background: var(--green-light); }
-  .card-left { display: flex; align-items: center; gap: 12px; }
-  .card-icon {
-    width: 36px; height: 36px; border-radius: 10px;
-    background: var(--green-light); display: flex;
-    align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .card-jp { font-size: 15px; font-weight: 600; color: var(--text); }
-  .card-trans { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .card-arrow {
-    font-size: 18px; color: var(--text-muted);
-    transition: transform 0.2s;
-  }
-  .card.open .card-arrow { transform: rotate(90deg); color: var(--green); }
-  .card-body {
-    display: none; padding: 0 16px 16px;
-    border-top: 1px solid #f0f0f0;
-  }
-  .card.open .card-body { display: block; }
-  .detail-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #f5f5f5;
-  }
-  .detail-item:last-child { border-bottom: none; }
-  .detail-jp { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .detail-trans { font-size: 13px; color: var(--green-dark); }
-  .detail-note { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
-  .detail-note-trans { font-size: 12px; color: #888; margin-top: 2px; line-height: 1.5; }
+.section-label { font-size: 11px; color: var(--text-muted); margin: 14px 0 8px 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  /* IMPORTANT BADGE */
-  .badge-important {
-    display: inline-block; background: #fee; color: #c00;
-    font-size: 10px; font-weight: 700; padding: 2px 8px;
-    border-radius: 10px; margin-left: 8px; vertical-align: middle;
-  }
-  .badge-law {
-    display: inline-block; background: #fff3e0; color: #e65100;
-    font-size: 10px; font-weight: 700; padding: 2px 8px;
-    border-radius: 10px; margin-left: 8px; vertical-align: middle;
-  }
+.block { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 12px; overflow: hidden; border: 1px solid #eee; }
+.block-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; cursor: pointer; }
+.block-icon { font-size: 20px; width: 36px; height: 36px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.block-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+.block-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.block-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.2s; }
+.block.open .block-arrow { transform: rotate(90deg); color: var(--green); }
+.block-body { display: none; border-top: 1px solid #f0f0f0; }
+.block.open .block-body { display: block; }
 
-  /* CUSTOM SECTION */
-  .custom-section {
-    background: #fff; border-radius: var(--radius);
-    border: 2px dashed #ccc; padding: 20px;
-    text-align: center; color: var(--text-muted);
-    margin-bottom: 24px;
-  }
-  .custom-section .icon { font-size: 32px; margin-bottom: 8px; }
-  .custom-section p { font-size: 13px; line-height: 1.6; }
-  .custom-section a {
-    color: var(--green); font-weight: 600; text-decoration: none;
-  }
+.sub-label { font-size: 11px; color: var(--text-muted); padding: 10px 14px 6px; font-weight: 500; }
 
-  /* FOOTER */
-  footer {
-    text-align: center; padding: 24px 16px;
-    font-size: 11px; color: #aaa;
-  }
+.btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
+.btn-grid.wide { grid-template-columns: 1fr; }
+.phrase-btn {
+  background: #fff; border: 1px solid #e0e0e0; border-radius: 10px;
+  padding: 12px 10px; cursor: pointer; text-align: center;
+  transition: background 0.15s; min-height: 64px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.phrase-btn:hover { background: var(--green-light); }
+.phrase-btn.red { border-left: 3px solid var(--red); }
+.phrase-btn.amber { border-left: 3px solid var(--amber); }
+.phrase-btn.green { border-left: 3px solid var(--green); }
+.btn-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.4; }
+.btn-tr { font-size: 11px; color: var(--text-muted); margin-top: 3px; white-space: pre-line; line-height: 1.3; }
 
-  /* HIDDEN */
-  .hidden { display: none !important; }
+.card-items { padding: 0 14px 12px; }
+.card-item { padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+.card-item:last-child { border-bottom: none; }
+.item-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; }
+.item-tr { font-size: 12px; color: var(--green-dark); margin-top: 3px; white-space: pre-line; }
+.item-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; white-space: pre-line; }
+.item-note-tr { font-size: 11px; color: #999; margin-top: 2px; line-height: 1.5; }
+
+.overlay-wrap {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: none; align-items: center; justify-content: center;
+  z-index: 200; padding: 20px;
+}
+.overlay-wrap.show { display: flex; }
+.popup {
+  background: #fff; border-radius: 16px; padding: 32px 24px;
+  width: 100%; max-width: 380px; text-align: center;
+}
+.popup-jp { font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 14px; white-space: pre-line; }
+.popup-tr { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; white-space: pre-line; }
+.popup-close { background: var(--green); color: #fff; border: none; border-radius: 24px; padding: 12px 40px; font-size: 15px; cursor: pointer; width: 100%; }
+
+footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-top">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M3 6l9-3 9 3v6c0 5-4 8-9 9-5-1-9-4-9-9V6z" fill="#1db87d"/>
-          <path d="M8 12l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div>
-        <div class="logo-text">せいかつメモ</div>
-        <div class="logo-sub">Tokushin Group 生活ガイド</div>
-      </div>
+    <div>
+      <div class="logo-text">せいかつメモ</div>
+      <div class="logo-sub">Tokushin Group 生活ガイド</div>
     </div>
   </div>
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ja">日本語</button>
-    <button class="lang-btn" data-lang="vi">Tiếng Việt</button>
-    <button class="lang-btn" data-lang="id">Indonesia</button>
-    <button class="lang-btn" data-lang="en">English</button>
-    <button class="lang-btn" data-lang="my">မြန်မာ</button>
-    <button class="lang-btn" data-lang="bn">বাংলা</button>
+  <div class="lang-row">
+    <button class="lb on" data-l="ja">日本語</button>
+    <button class="lb" data-l="vi">Tiếng Việt</button>
+    <button class="lb" data-l="id">Indonesia</button>
+    <button class="lb" data-l="en">English</button>
+    <button class="lb" data-l="my">မြန်မာ</button>
+    <button class="lb" data-l="bn">বাংলা</button>
   </div>
 </header>
 
-<main>
-  <!-- カテゴリタブ -->
-  <div class="cat-tabs">
-    <button class="cat-tab active" data-cat="all">すべて</button>
-    <button class="cat-tab" data-cat="life">🏠 住まい</button>
-    <button class="cat-tab" data-cat="emergency">🚨 緊急</button>
-    <button class="cat-tab" data-cat="procedure">🏛 手続き</button>
-    <button class="cat-tab" data-cat="work">💼 職場</button>
-    <button class="cat-tab" data-cat="security">🔒 情報</button>
-    <button class="cat-tab" data-cat="traffic">🚲 交通</button>
-    <button class="cat-tab" data-cat="daily">🛒 日常</button>
-    <button class="cat-tab" data-cat="custom">⚙️ 会社ルール</button>
+<div class="overlay-wrap" id="overlay">
+  <div class="popup">
+    <div class="popup-jp" id="pop-jp"></div>
+    <div class="popup-tr" id="pop-tr"></div>
+    <button class="popup-close" onclick="closePopup()">閉じる / Close</button>
   </div>
+</div>
 
+<main>
+  <div class="cat-row">
+    <button class="cat-btn on" data-c="all">すべて</button>
+    <button class="cat-btn" data-c="emergency">🚨 緊急</button>
+    <button class="cat-btn" data-c="hospital">🏥 病院</button>
+    <button class="cat-btn" data-c="work">💼 職場</button>
+    <button class="cat-btn" data-c="procedure">🏛️ 手続き</button>
+    <button class="cat-btn" data-c="daily">🛒 日常</button>
+    <button class="cat-btn" data-c="life">🏠 住まい</button>
+    <button class="cat-btn" data-c="traffic">🚲 交通</button>
+    <button class="cat-btn" data-c="security">🔒 情報</button>
+    <button class="cat-btn" data-c="custom">⚙️ 会社ルール</button>
+  </div>
   <div id="content"></div>
 </main>
 
 <footer>
-  <p>株式会社トクシントラスト | せいかつメモ v1.0</p>
-  <p style="margin-top:4px;">オフライン対応 / Offline available</p>
+  <p>株式会社トクシントラスト | せいかつメモ v2.0</p>
+  <p style="margin-top:4px;">オフライン対応 PWA</p>
 </footer>
 
+<script src="data.js"></script>
 <script>
-const LANGS = {
-  ja: '日本語', vi: 'Tiếng Việt', id: 'Indonesia',
-  en: 'English', my: 'မြန်မာ', bn: 'বাংলা'
-};
+let lang = 'ja';
+let cat = 'all';
 
-let currentLang = 'ja';
-let currentCat = 'all';
-
-// ========== データ ==========
-const DATA = [
-  {
-    cat: 'life',
-    icon: '🗑️',
-    title: { ja: 'ゴミ出しのルール', vi: 'Quy tắc đổ rác', id: 'Aturan membuang sampah', en: 'Garbage Rules', my: 'အမှိုက်ပစ်ခြင်းဆိုင်ရာ စည်းမျဉ်းများ', bn: 'ময়লা ফেলার নিয়ম' },
-    items: [
-      {
-        jp: 'ゴミは種類ごとに分けてください',
-        trans: { vi: 'Hãy phân loại rác theo từng loại', id: 'Harap pisahkan sampah menurut jenisnya', en: 'Please separate garbage by type', my: 'အမှိုက်များကို အမျိုးအစားအလိုက် ခွဲခြားပါ', bn: 'ময়লা ধরন অনুযায়ী আলাদা করুন' },
-        note: { ja: '燃えるゴミ・燃えないゴミ・資源ゴミ（ペットボトル・缶・瓶）に分けます', vi: 'Phân loại rác cháy, rác không cháy, rác tái chế (chai nhựa, lon, chai thủy tinh)', id: 'Bagi menjadi sampah mudah terbakar, tidak mudah terbakar, dan daur ulang (botol plastik, kaleng, botol kaca)', en: 'Separate into burnable, non-burnable, and recyclable (PET bottles, cans, glass)', my: 'မီးကျွမ်းနိုင်သော၊ မကျွမ်းနိုင်သော နှင့် ပြန်လည်အသုံးချနိုင်သော အမှိုက်များ ခွဲပါ', bn: 'পোড়ানো যায়, পোড়ানো যায় না এবং রিসাইকেল করা যায় এমন ময়লা আলাদা করুন' }
-      },
-      {
-        jp: '決められた曜日・時間に出してください',
-        trans: { vi: 'Hãy đổ rác vào ngày và giờ quy định', id: 'Buang sampah pada hari dan waktu yang ditentukan', en: 'Put out garbage only on designated days/times', my: 'သတ်မှတ်ထားသောနေ့နှင့် အချိန်တွင်သာ အမှိုက်ပစ်ပါ', bn: 'নির্ধারিত দিন ও সময়ে ময়লা রাখুন' },
-        note: { ja: '収集日の朝8時までに出す。前日の夜に出さないこと', vi: 'Đổ trước 8 giờ sáng ngày thu gom. Không đổ vào tối hôm trước', id: 'Keluarkan sebelum jam 8 pagi hari pengangkutan. Jangan dikeluarkan malam sebelumnya', en: 'Put out by 8am on collection day. Do not put out the night before', my: 'စုဆောင်းနေ့မနက် ၈နာရီမတိုင်မီ ထုတ်ပါ', bn: 'সংগ্রহের দিন সকাল ৮টার আগে রাখুন' }
-      },
-      {
-        jp: 'ゴミ袋は指定のものを使ってください',
-        trans: { vi: 'Hãy sử dụng túi rác theo quy định', id: 'Gunakan kantong sampah yang ditentukan', en: 'Use designated garbage bags', my: 'သတ်မှတ်ထားသော အမှိုက်အိတ်သုံးပါ', bn: 'নির্ধারিত ময়লার ব্যাগ ব্যবহার করুন' },
-        note: { ja: '自治体によって指定袋が必要な場合があります', vi: 'Một số địa phương yêu cầu dùng túi rác theo quy định', id: 'Beberapa daerah mewajibkan kantong sampah tertentu', en: 'Some municipalities require specific bags', my: 'အချို့ဒေသများတွင် သတ်မှတ်အိတ်လိုအပ်သည်', bn: 'কিছু এলাকায় নির্দিষ্ট ব্যাগ প্রয়োজন' }
-      }
-    ]
-  },
-  {
-    cat: 'life',
-    icon: '🔊',
-    title: { ja: '騒音・近隣マナー', vi: 'Tiếng ồn và phép lịch sự với hàng xóm', id: 'Kebisingan dan tata krama bertetangga', en: 'Noise & Neighbor Manners', my: 'ဆူညံသံနှင့် အိမ်နီးချင်းဆက်ဆံရေး', bn: 'শব্দ ও প্রতিবেশী আচরণ' },
-    items: [
-      {
-        jp: '夜10時以降は静かにしてください',
-        trans: { vi: 'Hãy giữ yên lặng sau 10 giờ tối', id: 'Harap tenang setelah jam 10 malam', en: 'Please be quiet after 10pm', my: 'ည ၁၀နာရီနောက် တိတ်ဆိတ်စွာနေပါ', bn: 'রাত ১০টার পর চুপ থাকুন' },
-        note: { ja: '音楽・テレビ・会話の音量を下げてください。近隣住民に迷惑をかけないように', vi: 'Hãy giảm âm lượng nhạc, TV, và tiếng nói chuyện', id: 'Kecilkan volume musik, TV, dan percakapan', en: 'Lower volume of music, TV, and conversations', my: 'တေးဂီတ၊ TV နှင့် စကားပြောသံ လျှော့ပါ', bn: 'সঙ্গীত, টিভি ও কথাবার্তার আওয়াজ কমান' }
-      },
-      {
-        jp: '廊下・共用部では走らないでください',
-        trans: { vi: 'Không chạy ở hành lang và khu vực chung', id: 'Jangan berlari di koridor dan area umum', en: 'Do not run in hallways or common areas', my: 'လမ်းကြားနှင့် ဘုံနေရာများတွင် မပြေးပါနှင့်', bn: 'করিডোর ও সাধারণ এলাকায় দৌড়াবেন না' },
-        note: { ja: '他の住人への配慮を忘れずに', vi: 'Hãy quan tâm đến những cư dân khác', id: 'Jangan lupa untuk memperhatikan penghuni lain', en: 'Be considerate of other residents', my: 'အခြားနေထိုင်သူများကို သတိပြုပါ', bn: 'অন্য বাসিন্দাদের প্রতি সহানুভূতি রাখুন' }
-      }
-    ]
-  },
-  {
-    cat: 'emergency',
-    icon: '🚒',
-    title: { ja: '緊急連絡先', vi: 'Số điện thoại khẩn cấp', id: 'Nomor darurat', en: 'Emergency Numbers', my: 'အရေးပေါ်ဖုန်းနံပါတ်များ', bn: 'জরুরি ফোন নম্বর' },
-    items: [
-      { jp: '119 – 救急車・火事', trans: { vi: '119 – Xe cứu thương / Cháy', id: '119 – Ambulans / Kebakaran', en: '119 – Ambulance / Fire', my: '119 – ကယ်ဆယ်ယာဉ် / မီးလောင်မှု', bn: '119 – অ্যাম্বুলেন্স / আগুন' }, note: { ja: '体の具合が悪い・火事のときに電話する', vi: 'Gọi khi bị bệnh nặng hoặc có cháy', id: 'Hubungi saat sakit parah atau kebakaran', en: 'Call when seriously ill or fire occurs', my: 'ပြင်းထန်သောနာမကျန်းမှု သို့မဟုတ် မီးလောင်မှုတွင် ခေါ်ပါ', bn: 'গুরুতর অসুস্থ বা আগুন লাগলে ফোন করুন' } },
-      { jp: '110 – 警察', trans: { vi: '110 – Cảnh sát', id: '110 – Polisi', en: '110 – Police', my: '110 – ရဲ', bn: '110 – পুলিশ' }, note: { ja: '事故・犯罪・困ったことがあれば電話する', vi: 'Gọi khi có tai nạn, tội phạm, hoặc rắc rối', id: 'Hubungi saat kecelakaan, kejahatan, atau masalah', en: 'Call for accidents, crimes, or trouble', my: 'မတော်တဆမှု၊ ရာဇဝတ်မှု သို့မဟုတ် ပြဿနာများတွင် ခေါ်ပါ', bn: 'দুর্ঘটনা, অপরাধ বা সমস্যায় ফোন করুন' } },
-      { jp: '#7119 – 救急安心センター（相談）', trans: { vi: '#7119 – Trung tâm tư vấn cấp cứu', id: '#7119 – Pusat konsultasi darurat', en: '#7119 – Emergency consultation', my: '#7119 – အရေးပေါ်တိုင်ပင်ရေးဌာန', bn: '#7119 – জরুরি পরামর্শ কেন্দ্র' }, note: { ja: '119を呼ぶべきか迷ったときに相談できる（一部地域）', vi: 'Tư vấn khi không biết có nên gọi 119 không (một số khu vực)', id: 'Konsultasi saat ragu apakah perlu menghubungi 119 (beberapa daerah)', en: 'Consult when unsure whether to call 119 (some areas)', my: '119 ခေါ်ရမည် မသေချာသောအခါ တိုင်ပင်ပါ', bn: '119 ডাকবেন কিনা বুঝতে না পারলে পরামর্শ করুন' } }
-    ]
-  },
-  {
-    cat: 'emergency',
-    icon: '🌊',
-    title: { ja: '災害時の行動', vi: 'Hành động khi thiên tai', id: 'Tindakan saat bencana', en: 'Disaster Actions', my: 'သဘာဝဘေးအန္တရာယ် ကြုံနိုင်သောအချိန် ဆောင်ရွက်ရန်', bn: 'দুর্যোগের সময় করণীয়' },
-    items: [
-      { jp: '地震が起きたら机の下に隠れる', trans: { vi: 'Khi động đất, hãy trú ẩn dưới bàn', id: 'Saat gempa, berlindung di bawah meja', en: 'During earthquake, hide under a desk', my: 'ငလျင်ဖြစ်လျှင် စားပွဲအောက်ခိုပါ', bn: 'ভূমিকম্পে টেবিলের নিচে আশ্রয় নিন' }, note: { ja: '頭を守り、揺れがおさまるまで動かない', vi: 'Bảo vệ đầu và không di chuyển cho đến khi hết rung lắc', id: 'Lindungi kepala dan jangan bergerak sampai goncangan berhenti', en: 'Protect your head and stay still until shaking stops', my: 'ခေါင်းကာကွယ်ပြီး တုန်ခါမှုရပ်သည်အထိ မရွေ့ပါနှင့်', bn: 'মাথা রক্ষা করুন এবং কাঁপুনি থামা পর্যন্ত নড়াচড়া করবেন না' } },
-      { jp: '避難場所を確認しておく', trans: { vi: 'Hãy xác nhận địa điểm sơ tán', id: 'Konfirmasi tempat evakuasi terlebih dahulu', en: 'Check evacuation site in advance', my: 'ထွက်ပြေးရာနေရာကို ကြိုတင်စစ်ဆေးပါ', bn: 'আশ্রয়স্থল আগেই জেনে রাখুন' }, note: { ja: '近くの避難場所は会社・寮の管理者に確認してください', vi: 'Hãy hỏi quản lý công ty/ký túc xá về địa điểm sơ tán gần nhất', id: 'Tanyakan kepada pengelola perusahaan/asrama tentang tempat evakuasi terdekat', en: 'Ask company/dormitory manager about nearest evacuation site', my: 'ကုမ္ပဏီ/အဆောင်မန်နေဂျာကို နီးဆုံး ထွက်ပြေးရာနေရာ မေးပါ', bn: 'কোম্পানি/ডর্মিটরি ম্যানেজারকে নিকটতম আশ্রয়স্থল সম্পর্কে জিজ্ঞাসা করুন' } }
-    ]
-  },
-  {
-    cat: 'procedure',
-    icon: '🏛️',
-    title: { ja: '役所での手続き', vi: 'Thủ tục tại cơ quan hành chính', id: 'Prosedur di kantor pemerintah', en: 'Government Office Procedures', my: 'အစိုးရရုံးတွင် လုပ်ငန်းစဉ်များ', bn: 'সরকারি অফিসে প্রক্রিয়া' },
-    items: [
-      { jp: '引っ越したら14日以内に転入届を出す', trans: { vi: 'Sau khi chuyển nhà, nộp đơn đăng ký trong vòng 14 ngày', id: 'Setelah pindah, ajukan pendaftaran dalam 14 hari', en: 'After moving, register at city hall within 14 days', my: 'ပြောင်းရွှေ့ပြီး ၁၄ရက်အတွင်း မှတ်ပုံတင်ပါ', bn: 'বাসা পরিবর্তনের ১৪ দিনের মধ্যে নিবন্ধন করুন' }, note: { ja: 'パスポート・在留カードを持参してください', vi: 'Mang theo hộ chiếu và thẻ cư trú', id: 'Bawa paspor dan kartu izin tinggal', en: 'Bring passport and residence card', my: 'နိုင်ငံကူးလက်မှတ်နှင့် နေထိုင်ခွင့်ကတ်ယူဆောင်ပါ', bn: 'পাসপোর্ট ও রেসিডেন্স কার্ড নিয়ে আসুন' } },
-      { jp: 'マイナンバーカードを作っておくと便利', trans: { vi: 'Làm thẻ My Number sẽ tiện lợi hơn', id: 'Membuat kartu My Number akan lebih praktis', en: 'Getting a My Number card is convenient', my: 'မိုင်နမ်ဘာကတ် ပြုလုပ်ထားသင့်သည်', bn: 'মাই নম্বর কার্ড বানিয়ে রাখা সুবিধাজনক' }, note: { ja: '銀行・マイナポータル・医療など幅広く使える', vi: 'Có thể dùng cho ngân hàng, cổng thông tin My Number, y tế, v.v.', id: 'Dapat digunakan untuk bank, portal My Number, layanan kesehatan, dll.', en: 'Used for bank, My Number portal, healthcare, etc.', my: 'ဘဏ်၊ ကျန်းမာရေးနှင့် အစိုးရဝန်ဆောင်မှုများတွင် သုံးနိုင်သည်', bn: 'ব্যাংক, স্বাস্থ্যসেবা সহ বিভিন্ন কাজে ব্যবহার করা যায়' } }
-    ]
-  },
-  {
-    cat: 'procedure',
-    icon: '🏥',
-    title: { ja: '病院・保険証', vi: 'Bệnh viện và thẻ bảo hiểm', id: 'Rumah sakit dan kartu asuransi', en: 'Hospital & Insurance Card', my: 'ဆေးရုံနှင့် အာမခံကတ်', bn: 'হাসপাতাল ও বীমা কার্ড' },
-    items: [
-      { jp: '病院に行くときは保険証を持参する', trans: { vi: 'Khi đến bệnh viện, hãy mang theo thẻ bảo hiểm', id: 'Saat ke rumah sakit, bawa kartu asuransi', en: 'Bring insurance card when going to hospital', my: 'ဆေးရုံသွားသောအခါ အာမခံကတ်ယူဆောင်ပါ', bn: 'হাসপাতালে যাওয়ার সময় বীমা কার্ড নিন' }, note: { ja: '保険証がないと医療費が全額自己負担になります', vi: 'Không có thẻ bảo hiểm, bạn phải tự trả toàn bộ chi phí y tế', id: 'Tanpa kartu asuransi, Anda menanggung semua biaya medis', en: 'Without insurance card, you pay full medical costs', my: 'အာမခံကတ်မရှိလျှင် ဆေးကုစရိတ် အပြည့်ပေးရသည်', bn: 'বীমা কার্ড না থাকলে সব চিকিৎসা খরচ নিজে দিতে হবে' } },
-      { jp: '薬局でも保険証が必要', trans: { vi: 'Nhà thuốc cũng cần thẻ bảo hiểm', id: 'Apotek juga memerlukan kartu asuransi', en: 'Insurance card also needed at pharmacy', my: 'ဆေးဆိုင်တွင်လည်း အာမခံကတ်လိုသည်', bn: 'ফার্মেসিতেও বীমা কার্ড লাগবে' }, note: { ja: '薬をもらうときも保険証を出してください', vi: 'Hãy xuất trình thẻ bảo hiểm khi nhận thuốc', id: 'Tunjukkan kartu asuransi saat mengambil obat', en: 'Show insurance card when receiving medicine', my: 'ဆေးယူသောအခါ အာမခံကတ်ပြပါ', bn: 'ওষুধ নেওয়ার সময় বীমা কার্ড দেখান' } }
-    ]
-  },
-  {
-    cat: 'work',
-    icon: '📞',
-    title: { ja: '遅刻・欠勤の連絡', vi: 'Thông báo khi đi muộn hoặc vắng mặt', id: 'Pemberitahuan keterlambatan atau ketidakhadiran', en: 'Late / Absence Notification', my: 'နောက်ကျခြင်း/ပျက်ကွက်ခြင်း အကြောင်းကြားချက်', bn: 'দেরি/অনুপস্থিতির বিজ্ঞপ্তি' },
-    items: [
-      { jp: '遅刻・欠勤は必ず事前に連絡する', trans: { vi: 'Luôn thông báo trước khi đi muộn hoặc vắng mặt', id: 'Selalu beritahu sebelumnya jika terlambat atau absen', en: 'Always notify in advance for late/absence', my: 'နောက်ကျမည် သို့မဟုတ် မတက်နိုင်ပါက အကြိုကြိုတင်အကြောင်းကြားပါ', bn: 'দেরি বা অনুপস্থিতির আগেই সবসময় জানাবেন' }, note: { ja: '無断欠勤は厳禁。連絡先は会社の担当者に確認してください', vi: 'Nghiêm cấm vắng mặt không báo. Hãy xác nhận số liên lạc với người phụ trách', id: 'Dilarang keras absen tanpa pemberitahuan. Konfirmasi kontak dengan penanggung jawab perusahaan', en: 'Unexcused absence strictly prohibited. Confirm contact with company supervisor', my: 'အကြောင်းမကြားဘဲ မတက်ခြင်း တင်းကြပ်စွာ တားမြစ်သည်', bn: 'বিনা নোটিশে অনুপস্থিতি কঠোরভাবে নিষিদ্ধ' } },
-      { jp: '体調不良でも必ず連絡を入れる', trans: { vi: 'Dù bị bệnh, vẫn phải thông báo', id: 'Meski sakit, tetap harus memberitahu', en: 'Even if sick, always notify', my: 'နာမကျန်းဖြစ်သော်လည်း အမြဲအကြောင်းကြားပါ', bn: 'অসুস্থ হলেও অবশ্যই জানাবেন' }, note: { ja: '始業時間の30分前までに連絡すること', vi: 'Thông báo trước giờ làm việc ít nhất 30 phút', id: 'Beritahu paling lambat 30 menit sebelum jam kerja', en: 'Notify at least 30 minutes before work starts', my: 'အလုပ်ချိန် မစတင်မီ ၃၀မိနစ်ကြိုတင်အကြောင်းကြားပါ', bn: 'কাজ শুরুর কমপক্ষে ৩০ মিনিট আগে জানান' } }
-    ]
-  },
-  {
-    cat: 'work',
-    icon: '👔',
-    title: { ja: '服装・身だしなみ', vi: 'Trang phục và vẻ ngoài', id: 'Pakaian dan penampilan', en: 'Dress Code & Appearance', my: 'ဝတ်စားဆင်ယင်မှုနှင့် အသွင်အပြင်', bn: 'পোশাক ও চেহারা' },
-    items: [
-      { jp: '清潔感のある服装で出勤してください', trans: { vi: 'Hãy đến làm việc với trang phục sạch sẽ gọn gàng', id: 'Hadir bekerja dengan pakaian yang bersih dan rapi', en: 'Come to work in clean, neat clothing', my: 'သန့်ရှင်းသပ်ရပ်သောအဝတ်အစားဖြင့် အလုပ်တက်ပါ', bn: 'পরিষ্কার ও পরিপাটি পোশাকে কাজে আসুন' }, note: { ja: '作業服・安全靴は会社の規定に従ってください', vi: 'Tuân theo quy định của công ty về quần áo bảo hộ và giày an toàn', id: 'Ikuti peraturan perusahaan mengenai pakaian kerja dan sepatu keselamatan', en: 'Follow company rules for work clothes and safety shoes', my: 'အလုပ်ဝတ်စုံနှင့် လုံခြုံရေးဖိနပ်အတွက် ကုမ္ပဏီစည်းမျဉ်းလိုက်နာပါ', bn: 'কর্মপোশাক ও নিরাপত্তা জুতার জন্য কোম্পানির নিয়ম মানুন' } },
-      { jp: '作業中はアクセサリー・ネイルを外す', trans: { vi: 'Khi làm việc, hãy tháo trang sức và sơn móng tay', id: 'Saat bekerja, lepaskan aksesori dan cat kuku', en: 'Remove accessories and nail polish during work', my: 'အလုပ်လုပ်နေစဉ် လက်ဆောင်ပစ္စည်းနှင့် လက်သည်းဆေးများ ခွာပါ', bn: 'কাজের সময় গহনা ও নেইল পলিশ খুলুন' }, note: { ja: '安全のため・食品衛生のため必要な場合があります', vi: 'Có thể cần thiết vì lý do an toàn hoặc vệ sinh thực phẩm', id: 'Mungkin diperlukan untuk alasan keselamatan atau kebersihan makanan', en: 'May be required for safety or food hygiene reasons', my: 'လုံခြုံရေး သို့မဟုတ် အစားအသောက်သန့်ရှင်းရေးအတွက် လိုအပ်နိုင်သည်', bn: 'নিরাপত্তা বা খাদ্য স্বাস্থ্যবিধির কারণে প্রয়োজন হতে পারে' } }
-    ]
-  },
-  {
-    cat: 'work',
-    icon: '🚫',
-    title: { ja: '職場の禁止事項', vi: 'Những điều bị cấm tại nơi làm việc', id: 'Hal-hal yang dilarang di tempat kerja', en: 'Workplace Prohibitions', my: 'အလုပ်ခွင်တွင် တားမြစ်ချက်များ', bn: 'কর্মক্ষেত্রে নিষিদ্ধ বিষয়' },
-    items: [
-      { jp: '職場でのスマートフォン使用禁止（許可された時間以外）', trans: { vi: 'Cấm sử dụng điện thoại thông minh tại nơi làm việc (ngoài giờ được phép)', id: 'Dilarang menggunakan smartphone di tempat kerja (kecuali waktu yang diizinkan)', en: 'Smartphone use prohibited at work (except permitted times)', my: 'အလုပ်ခွင်တွင် စမတ်ဖုန်းသုံးခြင်း တားမြစ်သည် (ခွင့်ပြုချိန်မှတစ်ပါး)', bn: 'কাজে স্মার্টফোন ব্যবহার নিষিদ্ধ (অনুমতিপ্রাপ্ত সময় ছাড়া)' }, note: { ja: '作業中の事故防止・集中力維持のため', vi: 'Nhằm ngăn ngừa tai nạn và duy trì sự tập trung khi làm việc', id: 'Untuk mencegah kecelakaan dan menjaga konsentrasi saat bekerja', en: 'To prevent accidents and maintain concentration', my: 'မတော်တဆမှုကာကွယ်ရန်နှင့် အာရုံစိုက်မှုထိန်းသိမ်းရန်', bn: 'দুর্ঘটনা প্রতিরোধ ও মনোযোগ বজায় রাখতে' } },
-      { jp: '飲酒しての出勤・作業は絶対禁止', trans: { vi: 'Tuyệt đối cấm đến làm việc hoặc làm việc khi đã uống rượu', id: 'Sama sekali dilarang datang kerja atau bekerja dalam keadaan mabuk', en: 'Coming to work or working while drunk strictly prohibited', my: 'မူးယစ်သောအခါ အလုပ်တက်ခြင်း သို့မဟုတ် လုပ်ကိုင်ခြင်း တင်းကြပ်စွာ တားမြစ်သည်', bn: 'মদ্যপ অবস্থায় কাজে আসা বা কাজ করা সম্পূর্ণ নিষিদ্ধ' }, note: { ja: '即解雇の対象となる場合があります', vi: 'Có thể bị sa thải ngay lập tức', id: 'Dapat berakibat pemecatan segera', en: 'May result in immediate dismissal', my: 'ချက်ချင်းထုတ်ပယ်ခံရနိုင်သည်', bn: 'তাৎক্ষণিক বরখাস্তের কারণ হতে পারে' } }
-    ]
-  },
-  {
-    cat: 'security',
-    icon: '📱',
-    title: { ja: 'SNS・情報セキュリティ', vi: 'MXH và bảo mật thông tin', id: 'Media sosial dan keamanan informasi', en: 'SNS & Information Security', my: 'SNS နှင့် သတင်းအချက်အလက်လုံခြုံရေး', bn: 'সোশ্যাল মিডিয়া ও তথ্য নিরাপত্তা' },
-    items: [
-      { jp: '職場・製品・お客様の情報をSNSに投稿しない', trans: { vi: 'Không đăng thông tin về nơi làm việc, sản phẩm, khách hàng lên mạng xã hội', id: 'Jangan posting informasi tentang tempat kerja, produk, pelanggan di media sosial', en: 'Do not post workplace, product, or customer info on SNS', my: 'အလုပ်ခွင်၊ ထုတ်ကုန်နှင့် ဖောက်သည်သတင်းများ SNS တင်ခြင်းမပြုပါနှင့်', bn: 'কর্মক্ষেত্র, পণ্য বা গ্রাহকের তথ্য সোশ্যাল মিডিয়ায় পোস্ট করবেন না' }, note: { ja: '工場内・製品の写真撮影も禁止の場合があります', vi: 'Chụp ảnh bên trong nhà máy và sản phẩm cũng có thể bị cấm', id: 'Mengambil foto di dalam pabrik dan produk juga mungkin dilarang', en: 'Photos inside factory and products may also be prohibited', my: 'စက်ရုံအတွင်းနှင့် ထုတ်ကုန်ဓါတ်ပုံရိုက်ခြင်းလည်း တားမြစ်နိုင်သည်', bn: 'কারখানার ভেতরে ও পণ্যের ছবি তোলাও নিষিদ্ধ হতে পারে' } },
-      { jp: '個人情報（お客様・同僚）を外部に漏らさない', trans: { vi: 'Không để lộ thông tin cá nhân (khách hàng, đồng nghiệp) ra bên ngoài', id: 'Jangan membocorkan informasi pribadi (pelanggan, rekan kerja) ke luar', en: 'Do not leak personal info (customers, colleagues) externally', my: 'ကိုယ်ရေးကိုယ်တာသတင်း (ဖောက်သည်၊ လုပ်ဖော်ကိုင်ဖက်) ပြင်ပသို့ မပေးပို့ပါနှင့်', bn: 'ব্যক্তিগত তথ্য (গ্রাহক, সহকর্মী) বাইরে ফাঁস করবেন না' }, note: { ja: '違反した場合は法的責任を問われる可能性があります', vi: 'Vi phạm có thể dẫn đến trách nhiệm pháp lý', id: 'Pelanggaran dapat mengakibatkan tanggung jawab hukum', en: 'Violations may result in legal liability', my: 'ချိုးဖောက်ပါက တရားဝင်တာဝန်ခံရနိုင်သည်', bn: 'লঙ্ঘন করলে আইনি দায় হতে পারে' } },
-      { jp: '会社のPC・スマホに個人アプリをインストールしない', trans: { vi: 'Không cài ứng dụng cá nhân vào PC hoặc điện thoại của công ty', id: 'Jangan instal aplikasi pribadi di PC atau ponsel perusahaan', en: 'Do not install personal apps on company PC/phones', my: 'ကုမ္ပဏီ PC/ဖုန်းတွင် ကိုယ်ပိုင် app များ မထည့်ပါနှင့်', bn: 'কোম্পানির PC/ফোনে ব্যক্তিগত অ্যাপ ইনস্টল করবেন না' }, note: { ja: 'ウイルス感染・情報漏洩のリスクがあります', vi: 'Có nguy cơ nhiễm vi-rút và rò rỉ thông tin', id: 'Ada risiko infeksi virus dan kebocoran informasi', en: 'Risk of virus infection and information leak', my: 'ဗိုင်းရပ်စ်ကူးစက်မှုနှင့် သတင်းပေါက်ကြားနိုင်ချေရှိသည်', bn: 'ভাইরাস সংক্রমণ ও তথ্য ফাঁসের ঝুঁকি আছে' } }
-    ]
-  },
-  {
-    cat: 'security',
-    icon: '⚖️',
-    title: { ja: 'コンプライアンス・ハラスメント', vi: 'Tuân thủ và quấy rối', id: 'Kepatuhan dan pelecehan', en: 'Compliance & Harassment', my: 'လိုက်နာဆောင်ရွက်မှုနှင့် နှောင့်ယှက်ခြင်း', bn: 'কমপ্লায়েন্স ও হয়রানি' },
-    items: [
-      { jp: 'ハラスメント（いじめ・嫌がらせ）は禁止', trans: { vi: 'Cấm quấy rối (bắt nạt, quấy nhiễu)', id: 'Dilarang melakukan pelecehan (intimidasi, gangguan)', en: 'Harassment (bullying, intimidation) prohibited', my: 'နှောင့်ယှက်ခြင်း (အနိုင်ကျင့်ခြင်း) တားမြစ်သည်', bn: 'হয়রানি (ধমক, উত্যক্ত করা) নিষিদ্ধ' }, note: { ja: 'パワハラ・セクハラ・いじめは全て禁止。相談窓口を活用してください', vi: 'Quấy rối quyền lực, quấy rối tình dục và bắt nạt đều bị cấm', id: 'Pelecehan kekuasaan, pelecehan seksual, dan intimidasi semuanya dilarang', en: 'Power harassment, sexual harassment, and bullying all prohibited', my: 'အာဏာနှောင့်ယှက်မှု၊ လိင်ပိုင်းဆိုင်ရာ နှောင့်ယှက်မှုနှင့် အနိုင်ကျင့်မှု အားလုံး တားမြစ်သည်', bn: 'ক্ষমতার অপব্যবহার, যৌন হয়রানি ও ধমক সবই নিষিদ্ধ' } },
-      { jp: '差別・偏見のある言動をしない', trans: { vi: 'Không có lời nói hay hành động phân biệt đối xử', id: 'Jangan melakukan ucapan atau tindakan diskriminatif', en: 'No discriminatory words or actions', my: 'ခွဲခြားဆက်ဆံခြင်းနှင့် အစွဲလမ်းမှုရှိသောစကားများ မပြောပါနှင့်', bn: 'বৈষম্যমূলক কথা বা কাজ করবেন না' }, note: { ja: '国籍・宗教・性別などによる差別は禁止です', vi: 'Phân biệt đối xử dựa trên quốc tịch, tôn giáo, giới tính, v.v. đều bị cấm', id: 'Diskriminasi berdasarkan kewarganegaraan, agama, jenis kelamin, dll. dilarang', en: 'Discrimination based on nationality, religion, gender, etc. prohibited', my: 'နိုင်ငံသား၊ ဘာသာ၊ လိင်အပေါ် အခြေခံသောခွဲခြားဆက်ဆံမှု တားမြစ်သည်', bn: 'জাতীয়তা, ধর্ম, লিঙ্গ ইত্যাদির ভিত্তিতে বৈষম্য নিষিদ্ধ' } }
-    ]
-  },
-  {
-    cat: 'traffic',
-    icon: '🚲',
-    title: { ja: '自転車のルール', vi: 'Quy tắc xe đạp', id: 'Aturan sepeda', en: 'Bicycle Rules', my: 'စက်ဘီးစည်းမျဉ်းများ', bn: 'সাইকেল নিয়ম' },
-    items: [
-      { jp: '自転車も車と同じ交通ルールが適用される', trans: { vi: 'Xe đạp cũng phải tuân theo quy tắc giao thông như xe ô tô', id: 'Sepeda juga tunduk pada aturan lalu lintas yang sama seperti mobil', en: 'Bicycles are subject to the same traffic rules as cars', my: 'စက်ဘီးများသည် ကားများနည်းတူ ယာဉ်ကြောစည်းမျဉ်းများနှင့် သက်ဆိုင်သည်', bn: 'সাইকেলেও গাড়ির মতো ট্রাফিক নিয়ম প্রযোজ্য' }, note: { ja: '信号無視・一時不停止は違反。罰金・逮捕されることがある', vi: 'Vượt đèn đỏ và không dừng ở biển STOP là vi phạm. Có thể bị phạt tiền hoặc bắt giữ', id: 'Melanggar lampu merah dan tidak berhenti di tanda STOP adalah pelanggaran. Bisa didenda atau ditangkap', en: 'Running red lights and stop signs is a violation. May result in fines or arrest', my: 'မီးနီကျော်ခြင်းနှင့် STOP မရပ်ခြင်း ချိုးဖောက်မှုဖြစ်သည်။ ဒဏ်ကြေးပေးရ/ဖမ်းဆီးခံရနိုင်သည်', bn: 'লাল সিগন্যাল ও স্টপ সাইন না মানলে জরিমানা বা গ্রেফতার হতে পারে' } },
-      { jp: '飲酒運転は禁止（自転車も同じ）', trans: { vi: 'Cấm lái xe khi say rượu (kể cả xe đạp)', id: 'Dilarang mengendarai dalam keadaan mabuk (termasuk sepeda)', en: 'Drunk cycling prohibited (same as cars)', my: 'မူးယစ်ရမ်းကားမောင်းနှင်ခြင်း တားမြစ်သည် (စက်ဘီးပါ)', bn: 'মদ্যপ অবস্থায় সাইকেল চালানো নিষিদ্ধ (গাড়ির মতো)' }, note: { ja: '2024年11月から罰則が強化。5年以下の懲役または100万円以下の罰金', vi: 'Từ tháng 11/2024, hình phạt được tăng cường. Phạt tù đến 5 năm hoặc phạt tiền đến 1 triệu yên', id: 'Sejak November 2024, sanksi diperketat. Penjara hingga 5 tahun atau denda hingga 1 juta yen', en: 'Since Nov 2024, penalties strengthened. Up to 5 years prison or ¥1 million fine', my: '၂၀၂၄ နိုဝင်ဘာမှစ၍ ပြစ်ဒဏ်ပိုမိုတင်းကြပ်သည်။ ထောင်ဒဏ် ၅နှစ်အထိ သို့မဟုတ် ဒဏ်ကြေး ၁သန်းအထိ', bn: '২০২৪ সালের নভেম্বর থেকে শাস্তি কঠোর হয়েছে। ৫ বছর জেল বা ১০ লাখ ইয়েন জরিমানা' } },
-      { jp: 'スマホ・イヤホンをしながら運転禁止', trans: { vi: 'Cấm vừa đi xe vừa dùng điện thoại hoặc tai nghe', id: 'Dilarang mengendarai sambil menggunakan ponsel atau earphone', en: 'No phone or earphone use while cycling', my: 'ဖုန်း/နားကြပ်သုံးရင်း စက်ဘီးမောင်းနှင်ခြင်း တားမြစ်သည်', bn: 'সাইকেল চালানোর সময় ফোন/ইয়ারফোন ব্যবহার নিষিদ্ধ' }, note: { ja: '2024年11月から罰則強化。6ヶ月以下の懲役または10万円以下の罰金', vi: 'Từ tháng 11/2024, hình phạt tăng cường. Phạt tù đến 6 tháng hoặc phạt tiền đến 100.000 yên', id: 'Sejak November 2024, sanksi diperketat. Penjara hingga 6 bulan atau denda hingga 100.000 yen', en: 'Since Nov 2024, penalties strengthened. Up to 6 months prison or ¥100,000 fine', my: '၂၀၂၄ နိုဝင်ဘာမှစ၍ ပြစ်ဒဏ်တင်းကြပ်သည်။ ထောင်ဒဏ် ၆လ သို့မဟုတ် ဒဏ်ကြေး ၁သိန်းအထိ', bn: '২০২৪ নভেম্বর থেকে শাস্তি কঠোর। ৬ মাস জেল বা ১ লাখ ইয়েন জরিমানা' } },
-      { jp: 'ヘルメットを着用する（努力義務）', trans: { vi: 'Đội mũ bảo hiểm (nghĩa vụ nỗ lực)', id: 'Pakai helm (kewajiban upaya)', en: 'Wear helmet (effort obligation)', my: 'ဦးထုပ်ဆောင်းပါ (ကြိုးပမ်းမှုတာဝန်)', bn: 'হেলমেট পরুন (প্রচেষ্টার বাধ্যবাধকতা)' }, note: { ja: '事故時の頭部保護のため着用を推奨します', vi: 'Khuyến khích đội mũ để bảo vệ đầu khi gặp tai nạn', id: 'Disarankan memakai helm untuk melindungi kepala saat kecelakaan', en: 'Recommended for head protection in accidents', my: 'မတော်တဆမှုတွင် ခေါင်းကာကွယ်ရန် ဆောင်းရန် အကြံပြုသည်', bn: 'দুর্ঘটনায় মাথা রক্ষার জন্য পরা বাঞ্ছনীয়' } },
-      { jp: '夜間はライトを点灯する', trans: { vi: 'Ban đêm phải bật đèn', id: 'Malam hari harus menyalakan lampu', en: 'Turn on lights at night', my: 'ညဘက် မီးထွန်းပါ', bn: 'রাতে লাইট জ্বালুন' }, note: { ja: '無灯火は違反。前後にライト・反射材を付けてください', vi: 'Không có đèn là vi phạm. Hãy gắn đèn và vật liệu phản quang phía trước và sau', id: 'Tanpa lampu adalah pelanggaran. Pasang lampu dan reflektor di depan dan belakang', en: 'No light is a violation. Attach front/rear lights and reflectors', my: 'မီးမထွန်းခြင်း ချိုးဖောက်မှုဖြစ်သည်။ ရှေ့နောက်မီးနှင့် သံလျှောက်ပစ္စည်းတပ်ပါ', bn: 'লাইট না থাকা নিয়ম লঙ্ঘন। সামনে-পেছনে লাইট ও রিফ্লেক্টর লাগান' } }
-    ]
-  },
-  {
-    cat: 'daily',
-    icon: '🛒',
-    title: { ja: '買い物・スーパー', vi: 'Mua sắm / siêu thị', id: 'Belanja / supermarket', en: 'Shopping / Supermarket', my: 'ဈေးဝယ်ခြင်း/စူပါမားကတ်', bn: 'কেনাকাটা/সুপারমার্কেট' },
-    items: [
-      { jp: 'セルフレジの使い方', trans: { vi: 'Cách dùng máy tính tiền tự phục vụ', id: 'Cara menggunakan kasir mandiri', en: 'How to use self-checkout', my: 'ကိုယ်တိုင်ဘောင်ချာထုတ်ရန်နည်းလမ်း', bn: 'সেলফ চেকআউট কীভাবে ব্যবহার করবেন' }, note: { ja: 'バーコードをスキャン→袋に入れる→お金を払う。わからない時は店員に声をかけてください', vi: 'Quét mã vạch → bỏ vào túi → thanh toán. Nếu không hiểu, hãy gọi nhân viên', id: 'Scan barcode → masukkan ke tas → bayar. Jika tidak mengerti, panggil petugas', en: 'Scan barcode → bag it → pay. If unsure, ask staff', my: 'ဘားကုဒ်စကင်ဖတ်ပါ → အိတ်ထည့်ပါ → ငွေပေးပါ', bn: 'বারকোড স্ক্যান করুন → ব্যাগে রাখুন → পেমেন্ট করুন' } },
-      { jp: 'ポイントカードで節約できる', trans: { vi: 'Có thể tiết kiệm bằng thẻ tích điểm', id: 'Bisa hemat dengan kartu poin', en: 'Save money with point cards', my: 'ပွိုင့်ကတ်ဖြင့် ငွေသက်သာနိုင်သည်', bn: 'পয়েন্ট কার্ড দিয়ে সাশ্রয় করা যায়' }, note: { ja: 'スーパーやドラッグストアでポイントカードを作ると割引が受けられます', vi: 'Làm thẻ tích điểm tại siêu thị hoặc cửa hàng thuốc để được giảm giá', id: 'Buat kartu poin di supermarket atau apotek untuk mendapatkan diskon', en: 'Get point cards at supermarkets/drug stores for discounts', my: 'စူပါမားကတ်/ဆေးဆိုင်တွင် ပွိုင့်ကတ်ပြုလုပ်ပါ', bn: 'সুপারমার্কেট/ড্রাগস্টোরে পয়েন্ট কার্ড বানান' } }
-    ]
-  },
-  {
-    cat: 'custom',
-    icon: '⚙️',
-    title: { ja: '会社・現場のルール（カスタム）', vi: 'Nội quy công ty / hiện trường (tùy chỉnh)', id: 'Aturan perusahaan / lokasi kerja (kustom)', en: 'Company / Site Rules (Custom)', my: 'ကုမ္ပဏီ/လုပ်ငန်းခွင်စည်းမျဉ်းများ', bn: 'কোম্পানি/সাইটের নিয়ম (কাস্টম)' },
-    items: [
-      { jp: 'この会社のルールはこちらに追加されます', trans: { vi: 'Nội quy của công ty này sẽ được thêm vào đây', id: 'Peraturan perusahaan ini akan ditambahkan di sini', en: 'This company\'s rules will be added here', my: 'ဤကုမ္ပဏီ၏ စည်းမျဉ်းများ ဤနေရာတွင် ထည့်သွင်းမည်', bn: 'এই কোম্পানির নিয়মগুলো এখানে যোগ করা হবে' }, note: { ja: '担当者にお問い合わせください：トクシントラスト 羽根', vi: 'Liên hệ người phụ trách: Tokushin Trust - Hane', id: 'Hubungi penanggung jawab: Tokushin Trust - Hane', en: 'Contact: Tokushin Trust - Hane', my: 'တာဝန်ခံသို့ဆက်သွယ်ပါ: Tokushin Trust - Hane', bn: 'দায়িত্বশীলের সাথে যোগাযোগ করুন: Tokushin Trust - Hane' } }
-    ]
-  }
-];
-
-// ========== レンダリング ==========
-function getLang(obj) {
+function g(obj) {
   if (!obj) return '';
-  return obj[currentLang] || obj['ja'] || '';
+  return obj[lang] || obj['ja'] || '';
 }
 
-function renderContent() {
-  const container = document.getElementById('content');
-  const filtered = currentCat === 'all' ? DATA : DATA.filter(s => s.cat === currentCat);
+function showPopup(jp, trObj) {
+  document.getElementById('pop-jp').textContent = jp;
+  document.getElementById('pop-tr').textContent = trObj[lang] || trObj['en'] || '';
+  document.getElementById('overlay').classList.add('show');
+}
 
-  if (filtered.length === 0) {
-    container.innerHTML = `<div class="custom-section"><div class="icon">📋</div><p>このカテゴリのコンテンツはありません</p></div>`;
-    return;
+function closePopup() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+
+function render() {
+  const el = document.getElementById('content');
+  let html = '';
+
+  const btns = DATA.button.filter(b => cat === 'all' || b.cat === cat);
+  const cards = DATA.card.filter(c => cat === 'all' || c.cat === cat);
+
+  if (btns.length > 0) {
+    if (cat === 'all') html += `<div class="section-label">タップして画面を見せる / Tap to show screen</div>`;
+    btns.forEach((b, bi) => {
+      html += `<div class="block" id="bb${bi}">`;
+      html += `<div class="block-header" onclick="toggle('bb${bi}')">`;
+      html += `<div class="block-icon">${b.icon}</div>`;
+      html += `<div style="flex:1"><div class="block-title">${g(b.title)}</div></div>`;
+      html += `<span class="block-arrow">›</span></div>`;
+      html += `<div class="block-body">`;
+      b.sections.forEach(sec => {
+        html += `<div class="sub-label">${g(sec.label)}</div>`;
+        const wide = sec.items.length <= 2;
+        html += `<div class="btn-grid${wide ? ' wide' : ''}">`;
+        sec.items.forEach((item, ii) => {
+          const key = `bb${bi}_${ii}`;
+          html += `<button class="phrase-btn ${item.color||''}" onclick="showPopup(${JSON.stringify(item.jp)}, ${JSON.stringify(item.tr)})">`;
+          html += `<div class="btn-jp">${item.jp}</div>`;
+          html += `<div class="btn-tr" id="${key}">${lang !== 'ja' ? (item.tr[lang]||'') : ''}</div>`;
+          html += `</button>`;
+        });
+        html += `</div>`;
+      });
+      html += `</div></div>`;
+    });
   }
 
-  let html = '';
-  filtered.forEach((section, si) => {
-    html += `<div class="section" data-cat="${section.cat}">`;
-    html += `<div class="cards">`;
-    html += `<div class="card" id="card-${si}">`;
-    html += `<div class="card-header" onclick="toggleCard(${si})">`;
-    html += `<div class="card-left">`;
-    html += `<div class="card-icon">${section.icon}</div>`;
-    html += `<div>`;
-    html += `<div class="card-jp">${getLang(section.title)}</div>`;
-    html += `</div></div>`;
-    html += `<span class="card-arrow">›</span>`;
-    html += `</div>`;
-    html += `<div class="card-body">`;
-    section.items.forEach(item => {
-      html += `<div class="detail-item">`;
-      html += `<div class="detail-jp">${item.jp}</div>`;
-      if (currentLang !== 'ja') {
-        html += `<div class="detail-trans">${getLang(item.trans)}</div>`;
-      }
-      if (item.note) {
-        html += `<div class="detail-note">${getLang(item.note)}</div>`;
-      }
-      html += `</div>`;
+  if (cards.length > 0) {
+    if (cat === 'all') html += `<div class="section-label">ルール・説明 / Rules & Info</div>`;
+    cards.forEach((c, ci) => {
+      html += `<div class="block" id="cb${ci}">`;
+      html += `<div class="block-header" onclick="toggle('cb${ci}')">`;
+      html += `<div class="block-icon">${c.icon}</div>`;
+      html += `<div style="flex:1"><div class="block-title">${g(c.title)}</div></div>`;
+      html += `<span class="block-arrow">›</span></div>`;
+      html += `<div class="block-body"><div class="card-items">`;
+      c.items.forEach(item => {
+        html += `<div class="card-item">`;
+        html += `<div class="item-jp">${item.jp}</div>`;
+        if (lang !== 'ja') html += `<div class="item-tr">${g(item.tr)}</div>`;
+        if (item.note) {
+          html += `<div class="item-note">${g(item.note)}</div>`;
+        }
+        html += `</div>`;
+      });
+      html += `</div></div></div>`;
     });
-    html += `</div></div>`;
-    html += `</div></div>`;
-  });
+  }
 
-  container.innerHTML = html;
+  if (btns.length === 0 && cards.length === 0) {
+    html = `<div style="text-align:center;padding:40px 16px;color:var(--text-muted);font-size:14px;">コンテンツがありません</div>`;
+  }
+
+  el.innerHTML = html;
 }
 
-function toggleCard(idx) {
-  const card = document.getElementById(`card-${idx}`);
-  card.classList.toggle('open');
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
 }
 
-// ========== イベント ==========
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentLang = btn.dataset.lang;
-    renderContent();
+document.querySelectorAll('.lb').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.lb').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    lang = b.dataset.l;
+    render();
   });
 });
 
-document.querySelectorAll('.cat-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    currentCat = tab.dataset.cat;
-    renderContent();
+document.querySelectorAll('.cat-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    cat = b.dataset.c;
+    render();
   });
 });
 
-// 初期レンダリング
-renderContent();
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
+render();
 </script>
 </body>
 </html>
