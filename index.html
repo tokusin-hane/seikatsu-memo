@@ -9,91 +9,124 @@
 <style>
 :root {
   --green: #1db87d; --green-dark: #0f6e56; --green-light: #e8f7ef;
-  --red: #E24B4A; --amber: #BA7517; --amber-light: #FAEEDA;
-  --gray: #f5f5f5; --text: #1a1a1a; --text-muted: #666;
-  --white: #fff; --radius: 12px;
+  --red: #E24B4A; --red-light: #FCEBEB;
+  --amber: #BA7517; --amber-light: #FAEEDA;
+  --gray: #f4f4f4; --text: #1a1a1a; --text-muted: #666;
+  --white: #fff; --radius: 14px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Noto Sans JP','Hiragino Sans',sans-serif; background: var(--gray); color: var(--text); min-height: 100vh; }
 
-header { background: var(--green); padding: 14px 16px 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+/* ヘッダー */
+header { background: var(--green); padding: 14px 16px 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.logo-text { color: #fff; font-size: 18px; font-weight: 700; }
+.logo-text { color: #fff; font-size: 20px; font-weight: 700; }
 .logo-sub { color: rgba(255,255,255,0.8); font-size: 10px; }
-.lang-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.lang-row { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; }
 .lang-row::-webkit-scrollbar { display: none; }
-.lb { background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; border-radius: 20px; padding: 4px 12px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.lb { background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.4); color: #fff; border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
 .lb.on { background: #fff; color: var(--green); border-color: #fff; }
 
-main { padding: 12px; max-width: 600px; margin: 0 auto; }
+/* メイン */
+main { max-width: 600px; margin: 0 auto; padding: 16px; }
 
-.cat-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 14px; }
-.cat-row::-webkit-scrollbar { display: none; }
-.cat-btn { background: #fff; border: 1.5px solid #ddd; border-radius: 20px; padding: 5px 14px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; color: var(--text-muted); }
-.cat-btn.on { background: var(--green); border-color: var(--green); color: #fff; }
+/* 困りごとセクション */
+.trouble-section { background: #fff; border-radius: var(--radius); padding: 16px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.trouble-heading { font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-align: center; letter-spacing: 0.3px; }
+.trouble-grid { display: flex; flex-direction: column; gap: 8px; }
+.trouble-btn {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--green-light); border: 2px solid var(--green);
+  border-radius: var(--radius); padding: 14px 16px;
+  cursor: pointer; transition: all 0.15s; width: 100%;
+}
+.trouble-btn:hover { background: var(--green); }
+.trouble-btn:hover .trouble-label { color: #fff; }
+.trouble-btn:hover .trouble-sub { color: rgba(255,255,255,0.8); }
+.trouble-icon { font-size: 26px; flex-shrink: 0; width: 36px; text-align: center; }
+.trouble-text { flex: 1; text-align: left; }
+.trouble-label { font-size: 16px; font-weight: 700; color: var(--green-dark); }
+.trouble-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.trouble-arrow { font-size: 20px; color: var(--green-dark); flex-shrink: 0; }
+.trouble-btn:hover .trouble-arrow { color: #fff; }
 
-.section-label { font-size: 11px; color: var(--text-muted); margin: 14px 0 8px 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+/* よく使うメニュー */
+.menu-section { margin-bottom: 14px; }
+.menu-heading { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; padding-left: 4px; font-weight: 500; }
+.menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.menu-btn {
+  background: #fff; border: 1px solid #e0e0e0; border-radius: 12px;
+  padding: 12px 6px; text-align: center; cursor: pointer;
+  transition: all 0.15s;
+}
+.menu-btn:hover { background: var(--green-light); border-color: var(--green); }
+.menu-btn.active { background: var(--green); border-color: var(--green); }
+.menu-btn.active .menu-btn-label { color: #fff; }
+.menu-icon { font-size: 22px; margin-bottom: 4px; }
+.menu-btn-label { font-size: 11px; font-weight: 600; color: var(--text); }
+.menu-btn.active .menu-icon { filter: brightness(10); }
 
-/* フローカード */
-.flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
-.flow-card { background: #fff; border-radius: var(--radius); border: 1px solid #eee; padding: 14px 12px; cursor: pointer; transition: background 0.15s; }
-.flow-card:hover { background: var(--green-light); }
-.flow-icon { font-size: 24px; margin-bottom: 6px; }
-.flow-title { font-size: 13px; font-weight: 600; color: var(--text); }
-.flow-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+/* コンテンツエリア */
+#content { }
 
-/* フロー詳細画面 */
-.flow-detail { display: none; }
-.flow-detail.show { display: block; }
-.flow-back { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 6px 14px; font-size: 13px; cursor: pointer; margin-bottom: 14px; width: fit-content; color: var(--text-muted); }
+/* フロー詳細 */
+.flow-back { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #eee; border-radius: 20px; padding: 7px 16px; font-size: 13px; cursor: pointer; margin-bottom: 14px; width: fit-content; color: var(--text-muted); }
+.flow-title-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.flow-title-icon { font-size: 28px; }
+.flow-title-text { font-size: 18px; font-weight: 700; color: var(--text); }
 .step-card { background: #fff; border-radius: var(--radius); border: 1px solid #eee; margin-bottom: 10px; overflow: hidden; }
-.step-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; }
-.step-no { width: 28px; height: 28px; background: var(--green); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-.step-action { font-size: 13px; font-weight: 600; color: var(--text); }
-.step-show { margin: 0 14px 14px; background: #f8f8f8; border-radius: 10px; padding: 16px; text-align: center; }
-.step-show-jp { font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.5; white-space: pre-line; margin-bottom: 8px; }
+.step-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; }
+.step-no { width: 30px; height: 30px; background: var(--green); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+.step-action { font-size: 14px; font-weight: 600; color: var(--text); }
+.step-show { margin: 0 14px 14px; background: #f0faf5; border: 1.5px solid var(--green); border-radius: 12px; padding: 18px; text-align: center; cursor: pointer; transition: background 0.15s; }
+.step-show:hover { background: var(--green-light); }
+.step-show-jp { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.5; white-space: pre-line; margin-bottom: 8px; }
 .step-show-tr { font-size: 13px; color: var(--text-muted); white-space: pre-line; line-height: 1.5; }
-.step-show-hint { font-size: 11px; color: var(--green-dark); margin-top: 8px; }
-.step-options { padding: 0 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.step-opt { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 10px 8px; cursor: pointer; text-align: center; transition: background 0.15s; }
+.step-show-hint { font-size: 11px; color: var(--green-dark); margin-top: 8px; background: rgba(29,184,125,0.1); border-radius: 6px; padding: 4px 8px; display: inline-block; }
+.step-options { padding: 0 14px 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.step-opt { background: #fff; border: 1.5px solid #ddd; border-radius: 10px; padding: 12px 8px; cursor: pointer; text-align: center; transition: all 0.15s; }
 .step-opt:hover { background: var(--green-light); border-color: var(--green); }
-.opt-jp { font-size: 12px; font-weight: 600; white-space: pre-line; line-height: 1.4; }
-.opt-tr { font-size: 11px; color: var(--text-muted); margin-top: 3px; white-space: pre-line; line-height: 1.3; }
+.opt-jp { font-size: 13px; font-weight: 700; white-space: pre-line; line-height: 1.4; color: var(--text); }
+.opt-tr { font-size: 11px; color: var(--text-muted); margin-top: 4px; white-space: pre-line; line-height: 1.3; }
 
-/* ブロック（ボタン・カード共通） */
-.block { background: #fff; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 10px; overflow: hidden; border: 1px solid #eee; }
-.block-header { display: flex; align-items: center; gap: 10px; padding: 13px 14px; cursor: pointer; }
-.block-icon { font-size: 20px; width: 36px; height: 36px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.block-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
-.block-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.2s; }
+/* ブロック（ボタン・カード） */
+.block { background: #fff; border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 10px; overflow: hidden; border: 1px solid #eee; }
+.block-header { display: flex; align-items: center; gap: 10px; padding: 14px; cursor: pointer; }
+.block-icon { font-size: 20px; width: 38px; height: 38px; background: var(--green-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.block-title { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
+.block-arrow { font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
 .block.open .block-arrow { transform: rotate(90deg); color: var(--green); }
 .block-body { display: none; border-top: 1px solid #f0f0f0; }
 .block.open .block-body { display: block; }
 .sub-label { font-size: 11px; color: var(--text-muted); padding: 10px 14px 6px; font-weight: 500; }
 .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 12px 12px; }
 .btn-grid.wide { grid-template-columns: 1fr; }
-.phrase-btn { background: #fff; border: 1px solid #e0e0e0; border-radius: 10px; padding: 12px 10px; cursor: pointer; text-align: center; transition: background 0.15s; min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.phrase-btn:hover { background: var(--green-light); }
+.phrase-btn { background: #fff; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 13px 10px; cursor: pointer; text-align: center; transition: background 0.15s; min-height: 68px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.phrase-btn:active { background: var(--green-light); }
 .phrase-btn.red { border-left: 3px solid var(--red); }
 .phrase-btn.amber { border-left: 3px solid var(--amber); }
 .phrase-btn.green { border-left: 3px solid var(--green); }
-.btn-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.4; }
-.btn-tr { font-size: 11px; color: var(--text-muted); margin-top: 3px; white-space: pre-line; line-height: 1.3; }
+.btn-jp { font-size: 13px; font-weight: 700; color: var(--text); white-space: pre-line; line-height: 1.4; }
+.btn-tr { font-size: 11px; color: var(--text-muted); margin-top: 4px; white-space: pre-line; line-height: 1.3; }
 .card-items { padding: 0 14px 12px; }
-.card-item { padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+.card-item { padding: 11px 0; border-bottom: 1px solid #f5f5f5; }
 .card-item:last-child { border-bottom: none; }
-.item-jp { font-size: 13px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.5; }
-.item-tr { font-size: 12px; color: var(--green-dark); margin-top: 3px; white-space: pre-line; line-height: 1.4; }
+.item-jp { font-size: 14px; font-weight: 600; color: var(--text); white-space: pre-line; line-height: 1.5; }
+.item-tr { font-size: 12px; color: var(--green-dark); margin-top: 4px; white-space: pre-line; line-height: 1.4; }
 
 /* ポップアップ */
-.overlay-wrap { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+.overlay-wrap { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
 .overlay-wrap.show { display: flex; }
-.popup { background: #fff; border-radius: 16px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; }
-.popup-jp { font-size: 26px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 12px; white-space: pre-line; }
-.popup-tr { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; white-space: pre-line; }
-.popup-close { background: var(--green); color: #fff; border: none; border-radius: 24px; padding: 12px 40px; font-size: 15px; cursor: pointer; width: 100%; }
+.popup { background: #fff; border-radius: 20px; padding: 36px 28px; width: 100%; max-width: 380px; text-align: center; }
+.popup-jp { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 14px; white-space: pre-line; }
+.popup-tr { font-size: 15px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; white-space: pre-line; }
+.popup-hint { font-size: 11px; color: var(--green-dark); margin-bottom: 20px; }
+.popup-close { background: var(--green); color: #fff; border: none; border-radius: 24px; padding: 13px 40px; font-size: 15px; cursor: pointer; width: 100%; font-weight: 600; }
 
-footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
+/* フッター */
+footer { text-align: center; padding: 20px 16px 32px; font-size: 11px; color: #aaa; }
+.offline-badge { display: inline-flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #e0e0e0; border-radius: 20px; padding: 5px 12px; font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+.offline-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; }
 </style>
 </head>
 <body>
@@ -119,41 +152,155 @@ footer { text-align: center; padding: 20px 16px; font-size: 11px; color: #aaa; }
   <div class="popup">
     <div class="popup-jp" id="pop-jp"></div>
     <div class="popup-tr" id="pop-tr"></div>
+    <div class="popup-hint">← 画面を見せてください / Show this screen</div>
     <button class="popup-close" onclick="closePopup()">閉じる / Close</button>
   </div>
 </div>
 
 <main>
-  <div class="cat-row">
-    <button class="cat-btn on" data-c="all">すべて</button>
-    <button class="cat-btn" data-c="flow">🔄 困りごと</button>
-    <button class="cat-btn" data-c="emergency">🚨 緊急</button>
-    <button class="cat-btn" data-c="hospital">🏥 病院</button>
-    <button class="cat-btn" data-c="work">💼 職場</button>
-    <button class="cat-btn" data-c="procedure">🏛️ 手続き</button>
-    <button class="cat-btn" data-c="daily">🛒 日常</button>
-    <button class="cat-btn" data-c="life">🏠 住まい</button>
-    <button class="cat-btn" data-c="traffic">🚲 交通</button>
-    <button class="cat-btn" data-c="security">🔒 情報</button>
-    <button class="cat-btn" data-c="custom">⚙️ 会社ルール</button>
+  <div id="top-screen">
+    <!-- 困りごとセクション -->
+    <div class="trouble-section">
+      <div class="trouble-heading" id="trouble-heading">いま何に困っていますか？</div>
+      <div class="trouble-grid">
+        <button class="trouble-btn" onclick="showFlow('late')">
+          <div class="trouble-icon">⏰</div>
+          <div class="trouble-text">
+            <div class="trouble-label" id="tl-late">遅れそう</div>
+            <div class="trouble-sub" id="ts-late">電話して伝える手順を見る</div>
+          </div>
+          <div class="trouble-arrow">›</div>
+        </button>
+        <button class="trouble-btn" onclick="showFlow('sick')">
+          <div class="trouble-icon">🤒</div>
+          <div class="trouble-text">
+            <div class="trouble-label" id="tl-sick">体調が悪い・休みたい</div>
+            <div class="trouble-sub" id="ts-sick">休む連絡の手順を見る</div>
+          </div>
+          <div class="trouble-arrow">›</div>
+        </button>
+        <button class="trouble-btn" onclick="showFlow('work_trouble')">
+          <div class="trouble-icon">🔧</div>
+          <div class="trouble-text">
+            <div class="trouble-label" id="tl-work">仕事でわからない・困った</div>
+            <div class="trouble-sub" id="ts-work">担当者に伝えるフレーズ</div>
+          </div>
+          <div class="trouble-arrow">›</div>
+        </button>
+        <button class="trouble-btn" onclick="showFlow('garbage')">
+          <div class="trouble-icon">🗑️</div>
+          <div class="trouble-text">
+            <div class="trouble-label" id="tl-garbage">ゴミを出したい</div>
+            <div class="trouble-sub" id="ts-garbage">分別と出し方の手順を見る</div>
+          </div>
+          <div class="trouble-arrow">›</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- よく使うメニュー -->
+    <div class="menu-section">
+      <div class="menu-heading" id="menu-heading">よく使うメニュー</div>
+      <div class="menu-grid">
+        <button class="menu-btn" onclick="showMenu('emergency')">
+          <div class="menu-icon">🚨</div>
+          <div class="menu-btn-label" id="ml-emergency">緊急</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('hospital')">
+          <div class="menu-icon">🏥</div>
+          <div class="menu-btn-label" id="ml-hospital">病院</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('procedure')">
+          <div class="menu-icon">🏛️</div>
+          <div class="menu-btn-label" id="ml-procedure">役所・銀行</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('daily')">
+          <div class="menu-icon">🛒</div>
+          <div class="menu-btn-label" id="ml-daily">買い物</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('life')">
+          <div class="menu-icon">🏠</div>
+          <div class="menu-btn-label" id="ml-life">住まい</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('traffic')">
+          <div class="menu-icon">🚲</div>
+          <div class="menu-btn-label" id="ml-traffic">交通</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('security')">
+          <div class="menu-icon">🔒</div>
+          <div class="menu-btn-label" id="ml-security">情報・ルール</div>
+        </button>
+        <button class="menu-btn" onclick="showMenu('custom')">
+          <div class="menu-icon">⚙️</div>
+          <div class="menu-btn-label" id="ml-custom">会社ルール</div>
+        </button>
+      </div>
+    </div>
   </div>
-  <div id="content"></div>
+
+  <!-- コンテンツエリア（フロー・メニュー詳細） -->
+  <div id="content" style="display:none;"></div>
 </main>
 
 <footer>
+  <div class="offline-badge">
+    <span class="offline-dot"></span>
+    <span>オフライン対応 / Offline available</span>
+  </div>
   <p>株式会社トクシントラスト | せいかつメモ v3.0</p>
-  <p style="margin-top:4px;">オフライン対応 PWA</p>
 </footer>
 
 <script src="data.js"></script>
 <script>
 let lang = 'ja';
-let cat = 'all';
 let currentFlow = null;
+let currentMenu = null;
+
+const LABELS = {
+  trouble_heading: { ja: 'いま何に困っていますか？', vi: 'Bạn đang gặp khó khăn gì?', id: 'Apa yang sedang Anda alami?', en: 'What do you need help with?', my: 'ဘာအခက်အခဲ ကြုံနေသလဲ？', bn: 'এখন কী সমস্যায় পড়েছেন?' },
+  menu_heading: { ja: 'よく使うメニュー', vi: 'Menu thường dùng', id: 'Menu yang sering digunakan', en: 'Frequently used', my: 'မကြာခဏ သုံးသောမီနူး', bn: 'প্রায়ই ব্যবহৃত মেনু' },
+  tl_late: { ja: '遅れそう', vi: 'Sắp đi muộn', id: 'Akan terlambat', en: 'Going to be late', my: 'နောက်ကျတော့မည်', bn: 'দেরি হবে' },
+  ts_late: { ja: '電話して伝える手順を見る', vi: 'Xem các bước để thông báo', id: 'Lihat langkah-langkah', en: 'See steps to notify', my: 'ဖုန်းဆက်အကြောင်းကြားနည်းကြည့်ပါ', bn: 'ফোন করে জানানোর ধাপ দেখুন' },
+  tl_sick: { ja: '体調が悪い・休みたい', vi: 'Không khỏe / Muốn nghỉ', id: 'Tidak enak badan / Ingin absen', en: 'Feel sick / Want day off', my: 'နာမကျန်းဖြစ်သည် / အနားယူလိုသည်', bn: 'অসুস্থ / ছুটি নিতে চাই' },
+  ts_sick: { ja: '休む連絡の手順を見る', vi: 'Xem các bước xin nghỉ', id: 'Lihat langkah izin absen', en: 'See steps to call in sick', my: 'အနားယူအကြောင်းကြားနည်းကြည့်ပါ', bn: 'ছুটির বিজ্ঞপ্তির ধাপ দেখুন' },
+  tl_work: { ja: '仕事でわからない・困った', vi: 'Không hiểu / Gặp khó khăn', id: 'Tidak mengerti / Ada masalah', en: "Don't understand / Having trouble", my: 'အလုပ်တွင် နားမလည် / အခက်အခဲ', bn: 'কাজে বুঝছি না / সমস্যা' },
+  ts_work: { ja: '担当者に伝えるフレーズ', vi: 'Cụm từ để nói với người phụ trách', id: 'Frasa untuk disampaikan ke penanggung jawab', en: 'Phrases to tell your supervisor', my: 'တာဝန်ခံသို့ပြောရမည့်စကား', bn: 'দায়িত্বশীলকে বলার বাক্য' },
+  tl_garbage: { ja: 'ゴミを出したい', vi: 'Muốn đổ rác', id: 'Ingin membuang sampah', en: 'Want to take out garbage', my: 'အမှိုက်ပစ်လိုသည်', bn: 'ময়লা ফেলতে চাই' },
+  ts_garbage: { ja: '分別と出し方の手順を見る', vi: 'Xem cách phân loại và đổ rác', id: 'Lihat cara memilah dan membuang', en: 'See how to sort and take out', my: 'ခွဲခြားနှင့် ထုတ်နည်းကြည့်ပါ', bn: 'বাছাই ও ফেলার ধাপ দেখুন' },
+  ml_emergency: { ja: '緊急', vi: 'Khẩn cấp', id: 'Darurat', en: 'Emergency', my: 'အရေးပေါ်', bn: 'জরুরি' },
+  ml_hospital: { ja: '病院', vi: 'Bệnh viện', id: 'Rumah sakit', en: 'Hospital', my: 'ဆေးရုံ', bn: 'হাসপাতাল' },
+  ml_procedure: { ja: '役所・銀行', vi: 'Cơ quan / Ngân hàng', id: 'Kantor / Bank', en: 'City Hall / Bank', my: 'အစိုးရရုံး/ဘဏ်', bn: 'অফিস/ব্যাংক' },
+  ml_daily: { ja: '買い物', vi: 'Mua sắm', id: 'Belanja', en: 'Shopping', my: 'ဈေးဝယ်', bn: 'কেনাকাটা' },
+  ml_life: { ja: '住まい', vi: 'Nơi ở', id: 'Tempat tinggal', en: 'Home', my: 'နေအိမ်', bn: 'বাড়ি' },
+  ml_traffic: { ja: '交通', vi: 'Giao thông', id: 'Lalu lintas', en: 'Traffic', my: 'ယာဉ်ကြောင်း', bn: 'যানবাহন' },
+  ml_security: { ja: '情報・ルール', vi: 'Thông tin / Quy tắc', id: 'Info / Aturan', en: 'Info / Rules', my: 'သတင်း/စည်းမျဉ်း', bn: 'তথ্য/নিয়ম' },
+  ml_custom: { ja: '会社ルール', vi: 'Nội quy công ty', id: 'Aturan perusahaan', en: 'Company Rules', my: 'ကုမ္ပဏီစည်းမျဉ်း', bn: 'কোম্পানির নিয়ম' },
+  back: { ja: '‹ 戻る', vi: '‹ Quay lại', id: '‹ Kembali', en: '‹ Back', my: '‹ နောက်သို့', bn: '‹ ফিরে যান' },
+  show_screen: { ja: '← 画面を見せてください', vi: '← Cho xem màn hình này', id: '← Tunjukkan layar ini', en: '← Show this screen', my: '← မျက်နှာပြင်ပြပါ', bn: '← এই স্ক্রিন দেখান' },
+};
 
 function g(obj) {
   if (!obj) return '';
   return obj[lang] || obj['ja'] || '';
+}
+
+function L(key) {
+  return LABELS[key] ? (LABELS[key][lang] || LABELS[key]['ja']) : '';
+}
+
+function updateLabels() {
+  document.getElementById('trouble-heading').textContent = L('trouble_heading');
+  document.getElementById('menu-heading').textContent = L('menu_heading');
+  ['late','sick','work','garbage'].forEach(k => {
+    const tl = document.getElementById('tl-'+k);
+    const ts = document.getElementById('ts-'+k);
+    if (tl) tl.textContent = L('tl_'+k);
+    if (ts) ts.textContent = L('ts_'+k);
+  });
+  ['emergency','hospital','procedure','daily','life','traffic','security','custom'].forEach(k => {
+    const el = document.getElementById('ml-'+k);
+    if (el) el.textContent = L('ml_'+k);
+  });
 }
 
 function showPopup(jp, trObj) {
@@ -170,34 +317,37 @@ document.getElementById('overlay').addEventListener('click', function(e) {
   if (e.target === this) closePopup();
 });
 
+function showTop() {
+  currentFlow = null;
+  currentMenu = null;
+  document.getElementById('top-screen').style.display = 'block';
+  document.getElementById('content').style.display = 'none';
+}
+
 function showFlow(flowId) {
   currentFlow = DATA.flow.find(f => f.id === flowId);
   if (!currentFlow) return;
-  renderFlowDetail();
+  currentMenu = null;
+  document.getElementById('top-screen').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  renderFlow();
 }
 
-function backToList() {
-  currentFlow = null;
-  render();
-}
-
-function renderFlowDetail() {
+function renderFlow() {
   const f = currentFlow;
-  let html = `<button class="flow-back" onclick="backToList()">‹ 戻る / Back</button>`;
-  html += `<div style="font-size:16px;font-weight:600;margin-bottom:14px;">${f.icon} ${g(f.title)}</div>`;
+  let html = `<button class="flow-back" onclick="showTop()">${L('back')}</button>`;
+  html += `<div class="flow-title-bar"><div class="flow-title-icon">${f.icon}</div><div class="flow-title-text">${g(f.title)}</div></div>`;
 
   f.steps.forEach(step => {
     html += `<div class="step-card">`;
     html += `<div class="step-header"><div class="step-no">${step.no}</div><div class="step-action">${g(step.action)}</div></div>`;
-
     if (step.show) {
-      html += `<div class="step-show">`;
+      html += `<div class="step-show" onclick="showPopup(${JSON.stringify(step.show.ja)}, ${JSON.stringify(step.show)})">`;
       html += `<div class="step-show-jp">${step.show.ja}</div>`;
       if (lang !== 'ja') html += `<div class="step-show-tr">${g(step.show)}</div>`;
-      html += `<div class="step-show-hint">← 画面を見せてください / Show this screen</div>`;
+      html += `<div class="step-show-hint">${L('show_screen')}</div>`;
       html += `</div>`;
     }
-
     if (step.options) {
       html += `<div class="step-options">`;
       step.options.forEach(opt => {
@@ -208,85 +358,68 @@ function renderFlowDetail() {
       });
       html += `</div>`;
     }
-
     html += `</div>`;
   });
 
   document.getElementById('content').innerHTML = html;
 }
 
-function render() {
-  if (currentFlow) { renderFlowDetail(); return; }
+function showMenu(cat) {
+  currentMenu = cat;
+  currentFlow = null;
+  document.getElementById('top-screen').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  renderMenu(cat);
+}
 
-  const el = document.getElementById('content');
-  let html = '';
+function renderMenu(cat) {
+  const btns = DATA.button.filter(b => b.cat === cat);
+  const cards = DATA.card.filter(c => c.cat === cat);
+  let html = `<button class="flow-back" onclick="showTop()">${L('back')}</button>`;
 
-  const showFlow = cat === 'all' || cat === 'flow';
-  const btns = DATA.button.filter(b => cat === 'all' || b.cat === cat);
-  const cards = DATA.card.filter(c => cat === 'all' || c.cat === cat);
-
-  if (showFlow) {
-    html += `<div class="section-label">いま何に困っていますか？ / What do you need help with?</div>`;
-    html += `<div class="flow-grid">`;
-    DATA.flow.forEach(f => {
-      html += `<div class="flow-card" onclick="showFlow('${f.id}')">`;
-      html += `<div class="flow-icon">${f.icon}</div>`;
-      html += `<div class="flow-title">${g(f.title)}</div>`;
-      html += `<div class="flow-sub">→ 手順を見る</div>`;
+  btns.forEach((b, bi) => {
+    html += `<div class="block" id="bb${bi}">`;
+    html += `<div class="block-header" onclick="toggle('bb${bi}')">`;
+    html += `<div class="block-icon">${b.icon}</div>`;
+    html += `<div class="block-title">${g(b.title)}</div>`;
+    html += `<span class="block-arrow">›</span></div>`;
+    html += `<div class="block-body">`;
+    b.sections.forEach(sec => {
+      html += `<div class="sub-label">${g(sec.label)}</div>`;
+      const wide = sec.items.length <= 2;
+      html += `<div class="btn-grid${wide ? ' wide' : ''}">`;
+      sec.items.forEach(item => {
+        html += `<button class="phrase-btn ${item.color||''}" onclick="showPopup(${JSON.stringify(item.jp)}, ${JSON.stringify(item.tr)})">`;
+        html += `<div class="btn-jp">${item.jp}</div>`;
+        if (lang !== 'ja') html += `<div class="btn-tr">${item.tr[lang]||''}</div>`;
+        html += `</button>`;
+      });
       html += `</div>`;
     });
-    html += `</div>`;
-  }
+    html += `</div></div>`;
+  });
 
-  if (btns.length > 0) {
-    if (cat === 'all') html += `<div class="section-label">タップして画面を見せる / Tap to show</div>`;
-    btns.forEach((b, bi) => {
-      html += `<div class="block" id="bb${bi}">`;
-      html += `<div class="block-header" onclick="toggle('bb${bi}')">`;
-      html += `<div class="block-icon">${b.icon}</div>`;
-      html += `<div style="flex:1"><div class="block-title">${g(b.title)}</div></div>`;
-      html += `<span class="block-arrow">›</span></div>`;
-      html += `<div class="block-body">`;
-      b.sections.forEach(sec => {
-        html += `<div class="sub-label">${g(sec.label)}</div>`;
-        const wide = sec.items.length <= 2;
-        html += `<div class="btn-grid${wide ? ' wide' : ''}">`;
-        sec.items.forEach(item => {
-          html += `<button class="phrase-btn ${item.color||''}" onclick="showPopup(${JSON.stringify(item.jp)}, ${JSON.stringify(item.tr)})">`;
-          html += `<div class="btn-jp">${item.jp}</div>`;
-          if (lang !== 'ja') html += `<div class="btn-tr">${item.tr[lang]||''}</div>`;
-          html += `</button>`;
-        });
-        html += `</div>`;
-      });
-      html += `</div></div>`;
+  cards.forEach((c, ci) => {
+    html += `<div class="block" id="cb${ci}">`;
+    html += `<div class="block-header" onclick="toggle('cb${ci}')">`;
+    html += `<div class="block-icon">${c.icon}</div>`;
+    html += `<div class="block-title">${g(c.title)}</div>`;
+    html += `<span class="block-arrow">›</span></div>`;
+    html += `<div class="block-body"><div class="card-items">`;
+    c.items.forEach(item => {
+      html += `<div class="card-item">`;
+      html += `<div class="item-jp">${item.jp}</div>`;
+      if (lang !== 'ja') html += `<div class="item-tr">${g(item.tr)}</div>`;
+      html += `</div>`;
     });
+    html += `</div></div></div>`;
+  });
+
+  if (btns.length === 0 && cards.length === 0) {
+    html += `<div style="text-align:center;padding:40px;color:var(--text-muted);">コンテンツがありません</div>`;
   }
 
-  if (cards.length > 0) {
-    if (cat === 'all') html += `<div class="section-label">ルール・説明 / Rules & Info</div>`;
-    cards.forEach((c, ci) => {
-      html += `<div class="block" id="cb${ci}">`;
-      html += `<div class="block-header" onclick="toggle('cb${ci}')">`;
-      html += `<div class="block-icon">${c.icon}</div>`;
-      html += `<div style="flex:1"><div class="block-title">${g(c.title)}</div></div>`;
-      html += `<span class="block-arrow">›</span></div>`;
-      html += `<div class="block-body"><div class="card-items">`;
-      c.items.forEach(item => {
-        html += `<div class="card-item">`;
-        html += `<div class="item-jp">${item.jp}</div>`;
-        if (lang !== 'ja') html += `<div class="item-tr">${g(item.tr)}</div>`;
-        html += `</div>`;
-      });
-      html += `</div></div></div>`;
-    });
-  }
-
-  if (!showFlow && btns.length === 0 && cards.length === 0) {
-    html = `<div style="text-align:center;padding:40px 16px;color:var(--text-muted);font-size:14px;">コンテンツがありません</div>`;
-  }
-
-  el.innerHTML = html;
+  document.getElementById('content').innerHTML = html;
 }
 
 function toggle(id) {
@@ -298,17 +431,9 @@ document.querySelectorAll('.lb').forEach(b => {
     document.querySelectorAll('.lb').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
     lang = b.dataset.l;
-    render();
-  });
-});
-
-document.querySelectorAll('.cat-btn').forEach(b => {
-  b.addEventListener('click', () => {
-    document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove('on'));
-    b.classList.add('on');
-    cat = b.dataset.c;
-    currentFlow = null;
-    render();
+    updateLabels();
+    if (currentFlow) renderFlow();
+    else if (currentMenu) renderMenu(currentMenu);
   });
 });
 
@@ -316,7 +441,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js');
 }
 
-render();
+updateLabels();
 </script>
 </body>
 </html>
